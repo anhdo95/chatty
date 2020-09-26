@@ -3,22 +3,28 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "nodemon ./server/index.js",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
     "axios": "^0.20.0",
+    "express": "^4.17.1",
     "firebase": "^7.21.0",
     "js-cookie": "^2.2.1",
     "next": "9.5.3",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "react-emoji": "^0.5.0",
+    "react-scroll-to-bottom": "^4.0.0",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0"
   },
   "devDependencies": {
     "@types/js-cookie": "^2.2.6",
     "@types/node": "^14.11.2",
     "@types/react": "^16.9.49",
+    "nodemon": "^2.0.4",
     "typescript": "^4.0.3"
   }
 }
