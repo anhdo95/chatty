@@ -1,14 +1,21 @@
 import { ProtectRoute } from '@/contexts/auth'
+import Layout from '@/components/Layout'
+
+import 'semantic-ui-css/semantic.min.css'
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
-  let WrappedComponent = Component
+	let WrappedComponent = Component
 
-  if (Component.middleware?.includes('auth')) {
-    WrappedComponent = ProtectRoute(WrappedComponent)
-  }
+	if (Component.middleware?.includes('auth')) {
+		WrappedComponent = ProtectRoute(WrappedComponent)
+	}
 
-  return <WrappedComponent {...pageProps} />
+	return (
+		<Layout>
+			<WrappedComponent {...pageProps} />
+		</Layout>
+	)
 }
 
 export default MyApp
