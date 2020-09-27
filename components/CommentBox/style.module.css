@@ -1,0 +1,26 @@
+.commentBox {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  align-items: center;
+  border-top: var(--border);
+}
+
+.input {
+  padding: 1rem 0;
+  border: none !important;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.button {
+  width: 32px;
+  height: 32px;
+  color: var(--color-light);
+  background: var(--color-primary);
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
