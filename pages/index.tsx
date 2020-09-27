@@ -3,8 +3,6 @@ import { useRouter } from 'next/router'
 import io from 'socket.io-client'
 import Chat from '@/components/Chat'
 
-import styles from '../styles/Home.module.css'
-
 const socket: SocketIOClient.Socket = io('localhost:3000')
 
 function Home(): JSX.Element {
@@ -48,12 +46,7 @@ function Home(): JSX.Element {
 		[message]
 	)
 
-	return (
-		<div>
-			<Chat />
-			{/* <input value={message} onChange={handleMessageChange} onKeyUp={handleMessageKeyDown} /> */}
-		</div>
-	)
+	return <Chat />
 }
 
 export default Home

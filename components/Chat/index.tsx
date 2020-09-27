@@ -1,5 +1,4 @@
 import React from 'react'
-import { Grid, Image } from 'semantic-ui-react'
 
 import Rooms from '@/components/Rooms'
 import Messages from '@/components/Messages'

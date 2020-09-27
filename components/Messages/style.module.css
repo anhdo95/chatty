@@ -1,0 +1,58 @@
+.messages {
+  overflow-y: auto;
+}
+
+.message {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  grid-gap: 1rem;
+  padding: 1rem;
+}
+
+.message.sender {
+  display: block;
+}
+
+.message.sender::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.thumb {
+  width: 30px;
+  height: 30px;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.details {
+  max-width: 50%;
+  color: var(--color-dark);
+}
+
+.details.sender {
+  float: right;
+}
+
+.text {
+  padding: 1rem;
+  background: var(--color-grey-light);
+  border-radius: 0.25rem;
+}
+
+.text.sender {
+  color: var(--color-light);
+  background: var(--color-primary);
+}
+
+.name {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 12px;
+}

@@ -1,6 +1,7 @@
 :root {
   --color-primary: #05728f;
   --color-light: #f9f9f9;
+  --color-dark: #646464;
   --color-grey: #c4c4c4;
   --color-grey-light: #ebebeb;
   --color-grey-dark: #747474;
@@ -28,18 +29,12 @@ ul, li {
 }
 
 ul::-webkit-scrollbar {
-  width: 0;
-}
-
-ul:hover::-webkit-scrollbar {
   width: 0.5rem;
 }
 
-figure {
+figure, p {
   margin: 0;
 }
-
-
 
 * {
   box-sizing: border-box;
