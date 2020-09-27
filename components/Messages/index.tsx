@@ -15,11 +15,13 @@ function Messages(): JSX.Element {
 
 	return (
 		<ul className={styles.messages}>
-			{messages.map(message => {
+			{messages.map((message, index) => {
 				const isOwner = message.id === owner?.id
 
 				return (
-					<li className={joinClass(styles.message, isOwner && styles.sender)} key={message.id}>
+					<li
+						className={joinClass(styles.message, isOwner && styles.sender)}
+						key={message.id + index}>
 						{!isOwner && (
 							<figure className={styles.thumb}>
 								<img

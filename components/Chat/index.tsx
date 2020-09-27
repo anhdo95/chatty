@@ -6,7 +6,7 @@ import CommentBox from '@/components/CommentBox'
 
 import styles from './style.module.css'
 
-function Chat(props): JSX.Element {
+function Chat(): JSX.Element {
 	return (
 		<section className={styles.chat}>
 			<h1 className={styles.heading}>Messaging</h1>

@@ -1,15 +1,29 @@
 import React, { useState, useCallback } from 'react'
 import { Icon } from 'semantic-ui-react'
 
+import { useSocket } from '@/contexts/socket'
+
 import styles from './style.module.css'
 
-function CommentBox(props) {
+function CommentBox(): JSX.Element {
 	const [message, setMessage] = useState('')
+	const socket = useSocket()
+
+	const handleSubmit = useCallback(
+		event => {
+			event.preventDefault()
+			if (!message.trim()) return
+
+			socket.sendMessage(message)
+			setMessage('')
+		},
+		[message]
+	)
 
 	const handleChange = useCallback(event => setMessage(event.target.value), [])
 
 	return (
-		<div className={styles.commentBox}>
+		<form className={styles.commentBox} onSubmit={handleSubmit}>
 			<input
 				className={styles.input}
 				placeholder="Type a message ..."
@@ -19,7 +33,7 @@ function CommentBox(props) {
 			<button className={styles.button}>
 				<Icon className={styles.icon} name="send" />
 			</button>
-		</div>
+		</form>
 	)
 }
 

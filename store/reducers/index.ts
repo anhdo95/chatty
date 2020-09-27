@@ -3,10 +3,9 @@ import { HYDRATE } from 'next-redux-wrapper'
 
 import chat, { State as ChatState } from './chat'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface State {
-	client: unknown
-	server: unknown
+	client?: null
+	server?: null
 }
 
 export interface RootState {
@@ -15,7 +14,7 @@ export interface RootState {
 }
 
 // create your reducer
-const reducer = (state: State, action: AnyAction) => {
+const reducer = (state: State = {}, action: AnyAction) => {
 	switch (action.type) {
 		case HYDRATE:
 			// Attention! This will overwrite client state! Real apps should use proper reconciliation.

@@ -3,10 +3,13 @@ import { User, Message } from '@/interfaces/chat'
 
 const socket: SocketIOClient.Socket = io('localhost:3000')
 
+console.log('socket access')
+
 export interface ClientSocket {
 	instance: SocketIOClient.Socket
 	join(user: User): Promise<User>
-	receiveMessage(callback: (message: Message) => void)
+	receiveMessage(callback: (message: Message) => void): void
+	sendMessage(message: string): void
 	unsubscribe(): void
 }
 
@@ -29,6 +32,10 @@ const clientSocket: ClientSocket = {
 
 	receiveMessage(callback: (message: Message) => void): void {
 		socket.on('message', callback)
+	},
+
+	sendMessage(message: string): void {
+		socket.emit('sendMessage', message)
 	},
 
 	unsubscribe(): void {
