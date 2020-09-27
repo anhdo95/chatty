@@ -6,7 +6,7 @@ import styles from '../styles/Home.module.css'
 
 const socket: SocketIOClient.Socket = io('localhost:3000')
 
-function Home() {
+function Home(): JSX.Element {
 	const [message, setMessage] = useState('')
 	const [messages, setMessages] = useState([])
 
@@ -44,7 +44,7 @@ function Home() {
 			socket.emit('sendMessage', message)
 			setMessage('')
 		},
-		[message, setMessage]
+		[message]
 	)
 
 	return (

@@ -17,7 +17,11 @@ const helper = {
   },
 
   removeUser(id) {
+    const user = helper.getUser(id)
+    if (!user) return
+    
     helper.users = helper.users.filter(u => u.id === id)
+    return user
   },
 
   getUser(id) {

@@ -43,7 +43,10 @@ nextApp.prepare().then(() => {
 
     socket.on('disconnect', () => {
       console.log('disconnect');
-      users.removeUser(socket.id)
+      const user = users.removeUser(socket.id)
+      if (!user) return
+
+      io.to(user.room).emit('message', getMessage('admin', `${user.name} has left!`))
     })
   })
 
