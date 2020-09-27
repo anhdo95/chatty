@@ -13,15 +13,13 @@ nextApp.prepare().then(() => {
 
   io.on('connection', (socket) => {
     function getMessage(user, text) {
-      return { user, text }
+      return { id: socket.id, user, text }
     }
 
     socket.on('join', ({ name, room }, callback) => {
-      console.log('name :>> ', name);
-      console.log('room :>> ', room);
       const { error, user } = users.addUser({ id: socket.id, name, room })
 
-      if (error) return callback(error)
+      if (error) return callback({ error })
 
       console.log('join:user :>> ', user);
       
@@ -31,7 +29,7 @@ nextApp.prepare().then(() => {
 				.emit('message', getMessage('admin', `${user.name}, has joined!`))
       socket.join(user.room)
 
-      callback()
+      callback({ user })
     })
 
     socket.on('sendMessage', (message) => {

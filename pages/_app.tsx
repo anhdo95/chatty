@@ -1,4 +1,7 @@
 import { ProtectRoute } from '@/contexts/auth'
+import socket, { ClientSocket } from '@/core/socket'
+import { wrapper } from '@/store'
+
 import Layout from '@/components/Layout'
 
 import 'semantic-ui-css/semantic.min.css'
@@ -11,11 +14,20 @@ function MyApp({ Component, pageProps }) {
 		WrappedComponent = ProtectRoute(WrappedComponent)
 	}
 
+	const appProps: AppProps = {
+		...pageProps,
+		socket,
+	}
+
 	return (
 		<Layout>
-			<WrappedComponent {...pageProps} />
+			<WrappedComponent {...appProps} />
 		</Layout>
 	)
 }
 
-export default MyApp
+export interface AppProps {
+	socket: ClientSocket
+}
+
+export default wrapper.withRedux(MyApp)

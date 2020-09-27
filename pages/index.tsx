@@ -1,15 +1,13 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
-import io from 'socket.io-client'
 import Chat from '@/components/Chat'
+import * as chat from '@/store/actions/chat'
+import { User, Message } from '@/interfaces/chat'
+import { AppProps } from '@/pages/_app'
 
-const socket: SocketIOClient.Socket = io('localhost:3000')
-
-function Home(): JSX.Element {
-	const [message, setMessage] = useState('')
-	const [messages, setMessages] = useState([])
-
-	console.log('messages :>> ', messages)
+function Home(props: AppProps): JSX.Element {
+	const dispatch = useDispatch()
 
 	const router = useRouter()
 	const { name, room } = router.query
@@ -17,34 +15,27 @@ function Home(): JSX.Element {
 	useEffect(() => {
 		if (!name || !room) return
 
-		socket.emit(
-			'join',
-			{
-				name,
-				room,
-			},
-			error => error && alert(error)
-		)
+		props.socket
+			.join({ name: name as string, room: room as string })
+			.then((user: User) => dispatch(chat.setOwner(user)))
+			.catch((error: string) => alert(error))
 
-		socket.on('message', newMessage => {
-			console.log('newMessage :>> ', newMessage)
-			setMessages(prevMessages => prevMessages.concat(newMessage))
-		})
+		props.socket.receiveMessage((message: Message) => dispatch(chat.addMessage(message)))
 
-		return () => socket.off(null)
+		return () => props.socket.unsubscribe()
 	}, [name, room])
 
-	const handleMessageChange = useCallback(event => setMessage(event.target.value), [setMessage])
-	const handleMessageKeyDown = useCallback(
-		event => {
-			event.preventDefault()
-			if (event.keyCode !== 13 || !message.trim()) return
+	// const handleMessageChange = useCallback(event => setMessage(event.target.value), [setMessage])
+	// const handleMessageKeyDown = useCallback(
+	// 	event => {
+	// 		event.preventDefault()
+	// 		if (event.keyCode !== 13 || !message.trim()) return
 
-			socket.emit('sendMessage', message)
-			setMessage('')
-		},
-		[message]
-	)
+	// 		socket.emit('sendMessage', message)
+	// 		setMessage('')
+	// 	},
+	// 	[message]
+	// )
 
 	return <Chat />
 }
