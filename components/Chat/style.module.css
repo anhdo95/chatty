@@ -1,0 +1,13 @@
+.heading {
+  text-align: center;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: minmax(250px, 3fr) 7fr;
+  border: var(--border);
+}
+
+.rooms {
+  border-right: var(--border);
+}

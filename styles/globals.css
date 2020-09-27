@@ -1,3 +1,13 @@
+:root {
+  --color-primary: #05728f;
+  --color-light: #f9f9f9;
+  --color-grey: #c4c4c4;
+  --color-grey-light: #ebebeb;
+  --color-grey-dark: #747474;
+
+  --border: 1px solid #c4c4c4;
+}
+
 html,
 body {
   padding: 0;
@@ -10,6 +20,26 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+ul, li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+ul::-webkit-scrollbar {
+  width: 0;
+}
+
+ul:hover::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+figure {
+  margin: 0;
+}
+
+
 
 * {
   box-sizing: border-box;

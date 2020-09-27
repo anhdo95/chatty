@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import io from 'socket.io-client'
+import Chat from '@/components/Chat'
 
 import styles from '../styles/Home.module.css'
 
@@ -49,7 +50,8 @@ function Home(): JSX.Element {
 
 	return (
 		<div>
-			<input value={message} onChange={handleMessageChange} onKeyUp={handleMessageKeyDown} />
+			<Chat />
+			{/* <input value={message} onChange={handleMessageChange} onKeyUp={handleMessageKeyDown} /> */}
 		</div>
 	)
 }
