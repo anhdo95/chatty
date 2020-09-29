@@ -1,7 +1,7 @@
 import io from 'socket.io-client'
 import { User, Message } from '@/interfaces/chat'
 
-const socket: SocketIOClient.Socket = io('localhost:3000')
+const socket: SocketIOClient.Socket = io('/')
 
 console.log('socket access')
 
