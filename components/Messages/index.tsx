@@ -1,5 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import ReactEmoji from 'react-emoji'
+
 import { RootState } from '@/store/reducers'
 import { Message, User } from '@/interfaces/chat'
 
@@ -32,7 +34,9 @@ function Messages(): JSX.Element {
 							</figure>
 						)}
 						<div className={joinClass(styles.details, isOwner && styles.sender)}>
-							<p className={joinClass(styles.text, isOwner && styles.sender)}>{message.text}</p>
+							<p className={joinClass(styles.text, isOwner && styles.sender)}>
+								{ReactEmoji.emojify(message.text)}
+							</p>
 							<span className={styles.name}>{message.user}</span>
 						</div>
 					</li>
