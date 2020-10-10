@@ -1,5 +1,18 @@
 .signIn {
-  height: 100vh;
-  padding-top: 20vh !important;
-  justify-content: center !important;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 450px !important;
+}
+
+.formGroup {
+  margin-bottom: 1rem;  
+}
+
+.signUpLink {
+  color: var(--color-link);
 }

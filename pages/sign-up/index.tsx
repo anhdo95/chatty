@@ -4,6 +4,7 @@ import * as Yup from 'yup'
 import { Header, Form, Button } from 'semantic-ui-react'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 import { RegisterRequest } from '@/interfaces/register'
 import apiService from '@/services/api.service'
@@ -30,14 +31,18 @@ function SignUp(): JSX.Element {
 			email: Yup.string().email('Invalid email address').required('Required'),
 		}),
 		onSubmit: async values => {
-			await apiService.register(values)
-			const { accessToken } = await apiService.login({
-				email: values.email,
-				password: values.password,
-			})
+			try {
+				await apiService.register(values)
+				const { accessToken } = await apiService.login({
+					email: values.email,
+					password: values.password,
+				})
 
-			Cookies.set('token', accessToken)
-			router.push('/')
+				Cookies.set('token', accessToken)
+				router.push('/')
+			} catch (error) {
+				console.error(error)
+			}
 		},
 	})
 
@@ -98,6 +103,14 @@ function SignUp(): JSX.Element {
 						/>
 					</div>
 
+					<p>
+						You already have an account. Go to{' '}
+						<Link href="/sign-in">
+							<a className={styles.signInLink}>login</a>
+						</Link>{' '}
+						instead
+					</p>
+
 					<Button type="submit" color="teal" fluid size="large">
 						Register
 					</Button>
@@ -106,5 +119,7 @@ function SignUp(): JSX.Element {
 		</div>
 	)
 }
+
+SignUp.middleware = ['anonymous']
 
 export default SignUp

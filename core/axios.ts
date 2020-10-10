@@ -4,16 +4,14 @@ import { setError } from '@/store/actions'
 
 const instance = axios.create({
 	baseURL: process.env.BASE_URL,
-	headers: {
-		Accept: 'application/json',
-		'Content-Type': 'application/json',
-	},
 })
 
 instance.interceptors.request.use(config => {
-	if (Cookies.get('token')) {
+	const token = Cookies.get('token')
+
+	if (token) {
 		config.params = config.params || {}
-		config.params.auth = Cookies.get('token')
+		config.headers.authorization = `Bearer ${token}`
 	}
 
 	return config
@@ -29,7 +27,7 @@ instance.interceptors.response.use(
 	},
 	error => {
 		globalThis.__store__.dispatch(setError(error.response.data))
-		return error
+		return Promise.reject(error)
 	}
 )
 

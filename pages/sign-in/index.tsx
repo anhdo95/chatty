@@ -1,76 +1,107 @@
-import React, { useState, useCallback } from 'react'
+import React from 'react'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import { Header, Form, Button } from 'semantic-ui-react'
+import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
-import { Button, Form, Grid, Header } from 'semantic-ui-react'
+import Link from 'next/link'
+
+import { LoginRequest } from '@/interfaces/login'
+import apiService from '@/services/api.service'
 
 import styles from './style.module.css'
-
 function SignIn(): JSX.Element {
-	const [name, setName] = useState('')
-	const [room, setRoom] = useState('')
-
 	const router = useRouter()
 
-	const handleChange = useCallback(
-		(event) => {
-			const setter = {
-				name: setName,
-				room: setRoom,
-			}[event.target.name]
-
-			setter && setter(event.target.value)
+	const formik = useFormik<LoginRequest>({
+		initialValues: {
+			email: '',
+			password: '',
 		},
-		[setName, setRoom]
-	)
+		validationSchema: Yup.object({
+			password: Yup.string()
+				.matches(
+					/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
+					'Password must be at least 8 characters and stronger'
+				)
+				.required('Required'),
+			email: Yup.string().email('Invalid email address').required('Required'),
+		}),
+		onSubmit: async values => {
+			try {
+				const { accessToken } = await apiService.login({
+					email: values.email,
+					password: values.password,
+				})
 
-	const handleSubmit = useCallback(
-		(event) => {
-			event.preventDefault()
-			if (!name.trim() || !room.trim()) return
-
-			router.push({
-				pathname: '/',
-				query: {
-					name,
-					room,
-				},
-			})
+				Cookies.set('token', accessToken)
+				router.push('/')
+			} catch (error) {
+				console.error(error)
+			}
 		},
-		[name, room, router]
-	)
+	})
+
+	function getErrorProps(key: string) {
+		return (
+			formik.touched[key] &&
+			formik.errors[key] && { content: formik.errors[key], pointing: 'below' }
+		)
+	}
 
 	return (
-		<Grid className={styles.signIn}>
-			<Grid.Column style={{ maxWidth: 450 }}>
+		<div className={styles.signIn}>
+			<section className={styles.container}>
 				<Header as="h1" color="teal" textAlign="center">
-					Join into your room
+					Login your account
 				</Header>
-				<Form size="large" onSubmit={handleSubmit}>
-					<Form.Input
-						fluid
-						icon="user"
-						iconPosition="left"
-						name="name"
-						placeholder="Name"
-						value={name}
-						onChange={handleChange}
-					/>
-					<Form.Input
-						fluid
-						icon="chat"
-						iconPosition="left"
-						name="room"
-						placeholder="Room"
-						value={room}
-						onChange={handleChange}
-					/>
+				<Form className={styles.form} onSubmit={formik.handleSubmit}>
+					<div className={styles.formGroup}>
+						<Form.Input
+							fluid
+							icon="mail"
+							iconPosition="left"
+							name="email"
+							placeholder="Email"
+							value={formik.values.email}
+							error={getErrorProps('email')}
+							onBlur={formik.handleBlur}
+							onChange={formik.handleChange}
+						/>
+					</div>
+
+					<div className={styles.formGroup}>
+						<Form.Input
+							fluid
+							icon="lock"
+							iconPosition="left"
+							type="password"
+							name="password"
+							placeholder="Password"
+							value={formik.values.password}
+							error={getErrorProps('password')}
+							onBlur={formik.handleBlur}
+							onChange={formik.handleChange}
+						/>
+					</div>
+
+					<p>
+						You are not have an account yet. Go to{' '}
+						<Link href="/sign-up">
+							<a className={styles.signUpLink}>register an account</a>
+						</Link>{' '}
+						instead
+					</p>
 
 					<Button type="submit" color="teal" fluid size="large">
-						Join
+						Login
 					</Button>
 				</Form>
-			</Grid.Column>
-		</Grid>
+			</section>
+		</div>
 	)
 }
+
+SignIn.middleware = ['anonymous']
 
 export default SignIn

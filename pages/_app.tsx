@@ -1,5 +1,6 @@
 import { wrapper } from '@/store'
 import withProtectedRoute from '@/hocs/ProtectedRoute'
+import withAnonymousRoute from '@/hocs/AnonymousRoute'
 import Layout from '@/components/Layout'
 
 import 'semantic-ui-css/semantic.min.css'
@@ -11,6 +12,10 @@ function MyApp({ Component, pageProps }) {
 
 	if (Component.middleware?.includes('auth')) {
 		WrappedComponent = withProtectedRoute(WrappedComponent)
+	}
+
+	if (Component.middleware?.includes('anonymous')) {
+		WrappedComponent = withAnonymousRoute(WrappedComponent)
 	}
 
 	return (

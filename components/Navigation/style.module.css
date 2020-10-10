@@ -1,0 +1,15 @@
+.menu {
+  background-color: var(--color-primary) !important;
+}
+
+.menuItem {
+  color: var(--color-light) !important;
+}
+
+.menuItem::before {
+  background: var(--color--menu-item) !important;
+}
+
+.menuItem[data-active="true"] {
+  background: var(--color--menu-item-active) !important;
+}
