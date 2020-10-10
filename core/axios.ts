@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import { setError } from '@/store/actions'
 
 const instance = axios.create({
 	baseURL: process.env.BASE_URL,
@@ -18,12 +19,18 @@ instance.interceptors.request.use(config => {
 	return config
 })
 
-instance.interceptors.response.use(res => {
-	if (res) {
-		return res.data
-	}
+instance.interceptors.response.use(
+	res => {
+		if (res) {
+			return res.data
+		}
 
-	return res
-})
+		return res
+	},
+	error => {
+		globalThis.__store__.dispatch(setError(error.response.data))
+		return error
+	}
+)
 
 export default instance

@@ -2,10 +2,13 @@ import { combineReducers, AnyAction } from 'redux'
 import { HYDRATE } from 'next-redux-wrapper'
 
 import chat, { State as ChatState } from './chat'
+import { ResponseError } from '@/interfaces/error'
+import { SET_ERROR } from '../actions'
 
 export interface State {
 	client?: null
 	server?: null
+	error?: ResponseError
 }
 
 export interface RootState {
@@ -19,6 +22,10 @@ const reducer = (state: State = {}, action: AnyAction) => {
 		case HYDRATE:
 			// Attention! This will overwrite client state! Real apps should use proper reconciliation.
 			return { ...state, ...action.payload }
+
+		case SET_ERROR:
+			return { ...state, error: action.payload }
+
 		default:
 			return state
 	}
