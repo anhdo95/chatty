@@ -2,12 +2,17 @@ import React from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { Header, Form, Button } from 'semantic-ui-react'
+import Cookies from 'js-cookie'
+import { useRouter } from 'next/router'
 
-import styles from './style.module.css'
 import { RegisterRequest } from '@/interfaces/register'
 import apiService from '@/services/api.service'
 
+import styles from './style.module.css'
+
 function SignUp(): JSX.Element {
+	const router = useRouter()
+
 	const formik = useFormik<RegisterRequest>({
 		initialValues: {
 			name: '',
@@ -19,13 +24,20 @@ function SignUp(): JSX.Element {
 			password: Yup.string()
 				.matches(
 					/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
-					'Password must be at least 8 characters and strong'
+					'Password must be at least 8 characters and stronger'
 				)
 				.required('Required'),
 			email: Yup.string().email('Invalid email address').required('Required'),
 		}),
 		onSubmit: async values => {
-			const response = await apiService.register(values)
+			await apiService.register(values)
+			const { accessToken } = await apiService.login({
+				email: values.email,
+				password: values.password,
+			})
+
+			Cookies.set('token', accessToken)
+			router.push('/')
 		},
 	})
 

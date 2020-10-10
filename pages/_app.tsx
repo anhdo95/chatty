@@ -1,6 +1,5 @@
-import { ProtectRoute } from '@/contexts/auth'
 import { wrapper } from '@/store'
-
+import withProtectedRoute from '@/hocs/ProtectedRoute'
 import Layout from '@/components/Layout'
 
 import 'semantic-ui-css/semantic.min.css'
@@ -11,7 +10,7 @@ function MyApp({ Component, pageProps }) {
 	let WrappedComponent = Component
 
 	if (Component.middleware?.includes('auth')) {
-		WrappedComponent = ProtectRoute(WrappedComponent)
+		WrappedComponent = withProtectedRoute(WrappedComponent)
 	}
 
 	return (

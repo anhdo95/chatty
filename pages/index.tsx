@@ -31,4 +31,6 @@ function Home(): JSX.Element {
 	return <Chat />
 }
 
+Home.middleware = ['auth']
+
 export default Home
