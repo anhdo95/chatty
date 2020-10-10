@@ -1,0 +1,14 @@
+.signUp {
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 450px !important;
+}
+
+.formGroup {
+  margin-bottom: 1rem;  
+}
