@@ -33,6 +33,7 @@ module.exports = {
 		'react/prop-types': 'off',
 		'@typescript-eslint/explicit-function-return-type': 'off',
 		'jsx-a11y/no-autofocus': 'off',
+		'prefer-spread': 'off',
 		'jsx-a11y/anchor-is-valid': [
 			'error',
 			{

@@ -1,11 +1,20 @@
 import { AnyAction } from 'redux'
-import { ADD_CHAT_MESSAGE, SET_CHAT_OWNER, SET_CHAT_ROOMS } from '@/store/actions/chat'
-import { Message, User } from '@/interfaces/chat'
-import { Conversations } from '@/interfaces/conversation'
+import {
+	SET_CHAT_MESSAGES,
+	ADD_CHAT_MESSAGE,
+	SET_CHAT_OWNER,
+	SET_CHAT_ROOMS,
+	SET_SELECTED_ROOM,
+	RESET_CHAT_MESSAGES,
+} from '@/store/actions/chat'
+import { User } from '@/interfaces/chat'
+import { Messages } from '@/interfaces/message'
+import { Conversations, Conversation } from '@/interfaces/conversation'
 
 export interface State {
 	rooms: Conversations
-	messages: Message[]
+	selectedRoom: Conversation
+	messages: Messages
 	owner: User
 }
 
@@ -14,20 +23,45 @@ const initialState: State = {
 		items: [],
 		totalItems: 0,
 	},
-	messages: [],
+	selectedRoom: null,
+	messages: {
+		items: [],
+		totalItems: 0,
+	},
 	owner: null,
 }
 
 function reducer(state: State = initialState, action: AnyAction): State {
 	switch (action.type) {
+		case SET_CHAT_MESSAGES:
+			return { ...state, messages: action.payload }
+
+		case RESET_CHAT_MESSAGES:
+			return {
+				...state,
+				messages: {
+					items: [],
+					totalItems: 0,
+				},
+			}
+
 		case ADD_CHAT_MESSAGE:
-			return { ...state, messages: [...state.messages, action.payload] }
+			return {
+				...state,
+				messages: {
+					...state.messages,
+					items: state.messages.items.push.apply(state.messages.items, action.payload),
+				},
+			}
 
 		case SET_CHAT_OWNER:
 			return { ...state, owner: action.payload }
 
 		case SET_CHAT_ROOMS:
 			return { ...state, rooms: action.payload }
+
+		case SET_SELECTED_ROOM:
+			return { ...state, selectedRoom: action.payload }
 
 		default:
 			return state

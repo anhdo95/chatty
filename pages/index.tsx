@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 
 import { useSocket } from '@/contexts/socket'
-import { User, Message } from '@/interfaces/chat'
+import { User } from '@/interfaces/chat'
+import { Message } from '@/interfaces/message'
 import * as chat from '@/store/actions/chat'
 
 import Chat from '@/components/Chat'

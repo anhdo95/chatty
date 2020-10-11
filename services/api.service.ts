@@ -3,6 +3,7 @@ import { RegisterRequest, RegisterResponse } from '@/interfaces/register'
 import { LoginRequest, LoginResponse } from '@/interfaces/login'
 import { User } from '@/interfaces/user'
 import { ConversationsRequest, Conversations } from '@/interfaces/conversation'
+import { Messages, MessagesRequest } from '@/interfaces/message'
 
 export default {
 	register(data: RegisterRequest): Promise<RegisterResponse> {
@@ -19,5 +20,9 @@ export default {
 
 	getRooms(params: ConversationsRequest): Promise<Conversations> {
 		return axios.get(`/conversations`, { params })
+	},
+
+	getMessages(params: MessagesRequest): Promise<Messages> {
+		return axios.get(`/messages`, { params })
 	},
 }

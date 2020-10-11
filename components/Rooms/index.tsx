@@ -2,13 +2,14 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import InfiniteScroll from 'react-infinite-scroller'
 import { formatDistance } from 'date-fns'
+import { useRouter } from 'next/router'
 
 import apiService from '@/services/api.service'
 import { RootState } from '@/store/reducers'
-import { Conversations } from '@/interfaces/conversation'
+import { setChatRooms, setSelectedRoom, resetMessages } from '@/store/actions/chat'
+import { Conversations, Conversation } from '@/interfaces/conversation'
 
 import styles from './style.module.css'
-import { setChatRooms } from '@/store/actions/chat'
 
 const LIMIT = 10
 
@@ -43,6 +44,13 @@ function Rooms(props): JSX.Element {
 		[rooms]
 	)
 
+	function handleRoomClick(room: Conversation) {
+		return function () {
+			dispatch(resetMessages())
+			dispatch(setSelectedRoom(room))
+		}
+	}
+
 	return (
 		<section className={styles.container}>
 			<header className={styles.header}>
@@ -51,7 +59,11 @@ function Rooms(props): JSX.Element {
 			<ul className={styles.rooms}>
 				<InfiniteScroll threshold={100} loadMore={loadRooms} hasMore={hasMore} useWindow={false}>
 					{rooms.items.map(room => (
-						<li className={[styles.room, styles.active].join(' ')} key={room.id}>
+						// eslint-disable-next-line
+						<li
+							className={[styles.room, styles.active].join(' ')}
+							key={room.id}
+							onClick={handleRoomClick(room)}>
 							<figure className={styles.thumb}>
 								<img className={styles.avatar} src={room.coverPhoto} alt={room.name} />
 							</figure>

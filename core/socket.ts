@@ -1,5 +1,6 @@
 import io from 'socket.io-client'
-import { User, Message } from '@/interfaces/chat'
+import { User } from '@/interfaces/chat'
+import { Message } from '@/interfaces/message'
 
 const socketOptions: SocketIOClient.ConnectOpts = {
 	transportOptions: {
