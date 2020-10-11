@@ -1,28 +1,46 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Menu } from 'semantic-ui-react'
 import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
+import { RootState } from '@/store/reducers'
+import { User } from '@/interfaces/user'
+
 import styles from './style.module.css'
+import { setLoggedInUser } from '@/store/actions/user'
 
 function Navigation(): JSX.Element {
+	const loggedInUser = useSelector<RootState, User>(state => state.user.loggedInUser)
 	const router = useRouter()
+	const dispatch = useDispatch()
 	const [activeItem, setActiveItem] = useState<string>()
+
+	const menuItems = useMemo(
+		() =>
+			[
+				{ path: '/', text: 'Chat', auth: true },
+				{ path: '/sign-up', text: 'Sign up', auth: false },
+				{ path: '/sign-in', text: 'Sign in', auth: false },
+			].filter(item => item.auth === !!loggedInUser),
+		[loggedInUser]
+	)
 
 	useEffect(() => {
 		setActiveItem(router.pathname)
 	}, [router.pathname])
 
-	function handleItemClick({ target }) {
-		setActiveItem(target.dataset.name)
-	}
+	const handleSignOut = useCallback(
+		function () {
+			event.preventDefault()
+			dispatch(setLoggedInUser(null))
+			Cookies.remove('token')
 
-	function handleSignOut() {
-		event.preventDefault()
-		Cookies.remove('token')
-		return void router.replace('/sign-in')
-	}
+			return void router.replace('/sign-in')
+		},
+		[router]
+	)
 
 	return (
 		<Menu fixed="top" className={styles.menu}>
@@ -33,41 +51,24 @@ function Navigation(): JSX.Element {
 				/>
 			</Menu.Item>
 
-			<Link href="/">
-				<Menu.Item
-					className={styles.menuItem}
-					data-name="/"
-					data-active={activeItem === '/'}
-					onClick={handleItemClick}>
-					Chat
-				</Menu.Item>
-			</Link>
+			{menuItems.map(menuItem => (
+				<Link href={menuItem.path} key={menuItem.path}>
+					<Menu.Item
+						className={styles.menuItem}
+						data-name={menuItem.path}
+						data-active={activeItem === menuItem.path}>
+						{menuItem.text}
+					</Menu.Item>
+				</Link>
+			))}
 
-			<Link href="/sign-up">
-				<Menu.Item
-					className={styles.menuItem}
-					data-name="/sign-up"
-					data-active={activeItem === '/sign-up'}
-					onClick={handleItemClick}>
-					Sign up
-				</Menu.Item>
-			</Link>
-
-			<Link href="/sign-in">
-				<Menu.Item
-					className={styles.menuItem}
-					data-name="/sign-in"
-					data-active={activeItem === '/sign-in'}
-					onClick={handleItemClick}>
-					Sign in
-				</Menu.Item>
-			</Link>
-
-			<Menu.Menu position="right">
-				<Menu.Item className={styles.menuItem} onClick={handleSignOut}>
-					Sign out
-				</Menu.Item>
-			</Menu.Menu>
+			{loggedInUser && (
+				<Menu.Menu position="right">
+					<Menu.Item className={styles.menuItem} onClick={handleSignOut}>
+						Sign out
+					</Menu.Item>
+				</Menu.Menu>
+			)}
 		</Menu>
 	)
 }
