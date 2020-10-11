@@ -2,17 +2,22 @@ import axios from '@/core/axios'
 import { RegisterRequest, RegisterResponse } from '@/interfaces/register'
 import { LoginRequest, LoginResponse } from '@/interfaces/login'
 import { User } from '@/interfaces/user'
+import { ConversationsRequest, Conversations } from '@/interfaces/conversation'
 
 export default {
-	register(request: RegisterRequest): Promise<RegisterResponse> {
-		return axios.post(`/auth/register`, request)
+	register(data: RegisterRequest): Promise<RegisterResponse> {
+		return axios.post(`/auth/register`, data)
 	},
 
-	login(request: LoginRequest): Promise<LoginResponse> {
-		return axios.post(`/auth/login`, request)
+	login(data: LoginRequest): Promise<LoginResponse> {
+		return axios.post(`/auth/login`, data)
 	},
 
 	getUserProfile(): Promise<User> {
 		return axios.get(`/users/me`)
+	},
+
+	getRooms(params: ConversationsRequest): Promise<Conversations> {
+		return axios.get(`/conversations`, { params })
 	},
 }
