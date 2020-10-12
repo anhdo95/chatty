@@ -1,11 +1,15 @@
 import React, { useState, useCallback } from 'react'
 import { Icon } from 'semantic-ui-react'
+import { useSelector } from 'react-redux'
 
 import { useSocket } from '@/contexts/socket'
+import { RootState } from '@/store/reducers'
+import { Conversation } from '@/interfaces/conversation'
 
 import styles from './style.module.css'
 
 function CommentBox(): JSX.Element {
+	const selectedRoom = useSelector<RootState, Conversation>(state => state.chat.selectedRoom)
 	const [message, setMessage] = useState('')
 	const socket = useSocket()
 
@@ -14,7 +18,10 @@ function CommentBox(): JSX.Element {
 			event.preventDefault()
 			if (!message.trim()) return
 
-			socket.sendMessage(message)
+			socket.sendMessage({
+				content: message,
+				conversationId: selectedRoom.id,
+			})
 			setMessage('')
 		},
 		[message]

@@ -16,18 +16,18 @@ function Home(): JSX.Element {
 
 	const { name, room } = router.query
 
-	useEffect(() => {
-		if (!name || !room) return
+	// useEffect(() => {
+	// 	if (!name || !room) return
 
-		socket
-			.join({ name: name as string, room: room as string })
-			.then((user: User) => dispatch(chat.setOwner(user)))
-			.catch((error: string) => alert(error))
+	// 	socket
+	// 		.join({ name: name as string, room: room as string })
+	// 		.then((user: User) => dispatch(chat.setOwner(user)))
+	// 		.catch((error: string) => alert(error))
 
-		socket.receiveMessage((message: Message) => dispatch(chat.addMessage(message)))
+	// 	socket.receiveMessage((message: Message) => dispatch(chat.addMessage(message)))
 
-		return () => socket.unsubscribe()
-	}, [name, room])
+	// 	return () => socket.unsubscribe()
+	// }, [name, room])
 
 	return <Chat />
 }

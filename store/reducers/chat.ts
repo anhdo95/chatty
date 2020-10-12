@@ -46,11 +46,13 @@ function reducer(state: State = initialState, action: AnyAction): State {
 			}
 
 		case ADD_CHAT_MESSAGE:
+			state.messages.items.push.call(state.messages.items, action.payload)
+
 			return {
 				...state,
 				messages: {
 					...state.messages,
-					items: state.messages.items.push.apply(state.messages.items, action.payload),
+					// items: { ...state.messages.items },
 				},
 			}
 

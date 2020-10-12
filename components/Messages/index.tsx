@@ -4,11 +4,12 @@ import InfiniteScroll from 'react-infinite-scroller'
 import ReactEmoji from 'react-emoji'
 
 import { RootState } from '@/store/reducers'
-import { setMessages } from '@/store/actions/chat'
+import { setMessages, addMessage } from '@/store/actions/chat'
 import apiService from '@/services/api.service'
-import { Messages as IMessages } from '@/interfaces/message'
+import { Messages as IMessages, Message } from '@/interfaces/message'
 import { User } from '@/interfaces/user'
 import { Conversation } from '@/interfaces/conversation'
+import socket from '@/core/socket'
 
 import styles from './style.module.css'
 
@@ -23,12 +24,21 @@ function Messages(): JSX.Element {
 	const loggedInUser = useSelector<RootState, User>(state => state.user.loggedInUser)
 	const selectedRoom = useSelector<RootState, Conversation>(state => state.chat.selectedRoom)
 	const [hasMore, setHasMore] = useState<boolean>(!!selectedRoom)
-	const infiniteScrollEl = useRef()
+	const infiniteScrollEl = useRef<any>()
+	const messagesRef = useRef<HTMLUListElement>()
 
 	const dispatch = useDispatch()
 
 	useEffect(() => {
+		socket.receiveMessage((message: Message) => {
+			dispatch(addMessage(message))
+			messagesRef.current.scrollTo(0, messagesRef.current.scrollHeight)
+		})
+	}, [])
+
+	useEffect(() => {
 		if (!selectedRoom) return
+
 		infiniteScrollEl.current.pageLoaded = 0
 		setHasMore(true)
 	}, [selectedRoom])
@@ -51,6 +61,10 @@ function Messages(): JSX.Element {
 						items: nextMessages.items.concat(messages.items),
 					})
 				)
+
+				if (page === 1) {
+					socket.join(selectedRoom.id)
+				}
 			} catch (error) {
 				console.error(error)
 			}
@@ -59,7 +73,7 @@ function Messages(): JSX.Element {
 	)
 
 	return (
-		<ul className={styles.messages}>
+		<ul ref={messagesRef} className={styles.messages}>
 			<InfiniteScroll
 				isReverse
 				ref={infiniteScrollEl}

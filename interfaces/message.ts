@@ -6,6 +6,11 @@ export interface MessagesRequest {
 	offset: number
 }
 
+export interface MessageRequest {
+	conversationId: number
+	content: string
+}
+
 export interface Messages {
 	items: Message[]
 	totalItems: number
