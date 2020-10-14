@@ -1,16 +1,21 @@
-.signUp {
-  height: 100%;
-  display: grid;
-  place-items: center;
-}
-
 .container {
   width: 100%;
   max-width: 450px !important;
+  margin: 5rem auto;
+}
+
+.heading {
+  font-size: 20px;
+  font-weight: 300;
+  text-align: center;
 }
 
 .formGroup {
   margin-bottom: 1rem;  
+}
+
+.message {
+  text-align: center;
 }
 
 .signInLink {

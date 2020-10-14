@@ -1,19 +1,18 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { Header, Form, Button } from 'semantic-ui-react'
+import { Form, Button } from 'semantic-ui-react'
 import Cookies from 'js-cookie'
-import { useRouter } from 'next/router'
+import Router from 'next/router'
 import Link from 'next/link'
 
 import { RegisterRequest } from '@/interfaces/register'
 import apiService from '@/services/api.service'
 
 import styles from './style.module.css'
+import Logo from '@/components/Logo'
 
 function SignUp(): JSX.Element {
-	const router = useRouter()
-
 	const formik = useFormik<RegisterRequest>({
 		initialValues: {
 			name: '',
@@ -39,7 +38,7 @@ function SignUp(): JSX.Element {
 				})
 
 				Cookies.set('token', accessToken)
-				router.push('/')
+				Router.push('/')
 			} catch (error) {
 				console.error(error)
 			}
@@ -56,9 +55,8 @@ function SignUp(): JSX.Element {
 	return (
 		<div className={styles.signUp}>
 			<section className={styles.container}>
-				<Header as="h1" color="teal" textAlign="center">
-					Register an account
-				</Header>
+				<Logo />
+				<h1 className={styles.heading}>Sign up Chatty account</h1>
 				<Form className={styles.form} onSubmit={formik.handleSubmit}>
 					<div className={styles.formGroup}>
 						<Form.Input
@@ -103,17 +101,16 @@ function SignUp(): JSX.Element {
 						/>
 					</div>
 
-					<p>
-						You already have an account. Go to{' '}
-						<Link href="/sign-in">
-							<a className={styles.signInLink}>login</a>
-						</Link>{' '}
-						instead
-					</p>
-
 					<Button type="submit" color="teal" fluid size="large">
-						Register
+						Register an account
 					</Button>
+
+					<p className={styles.message}>
+						Already have an account?{' '}
+						<Link href="/sign-in">
+							<a className={styles.signInLink}>Login now!</a>
+						</Link>
+					</p>
 				</Form>
 			</section>
 		</div>
