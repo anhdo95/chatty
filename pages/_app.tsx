@@ -3,9 +3,7 @@ import withProtectedRoute from '@/hocs/ProtectedRoute'
 import withAnonymousRoute from '@/hocs/AnonymousRoute'
 import Layout from '@/components/Layout'
 
-import 'semantic-ui-css/semantic.min.css'
-import 'react-notifications/lib/notifications.css'
-import '../styles/globals.css'
+import '@/styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
 	let WrappedComponent = Component

@@ -1,3 +1,6 @@
+@import '~semantic-ui-css/semantic.min.css';
+@import '~react-notifications/lib/notifications.css';
+
 :root {
   --color-primary: #05728f;
   --color-light: #f9f9f9;
