@@ -1,12 +1,13 @@
-.signIn {
-  height: 100%;
-  display: grid;
-  place-items: center;
-}
-
 .container {
   width: 100%;
   max-width: 450px !important;
+  margin: 5rem auto;
+}
+
+.heading {
+  font-size: 20px;
+  font-weight: 300;
+  text-align: center;
 }
 
 .formGroup {
@@ -15,4 +16,8 @@
 
 .signUpLink {
   color: var(--color-link);
+}
+
+.message {
+  text-align: center;
 }

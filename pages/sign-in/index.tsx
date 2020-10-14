@@ -1,18 +1,18 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { Header, Form, Button } from 'semantic-ui-react'
+import { Form, Button } from 'semantic-ui-react'
 import Cookies from 'js-cookie'
-import { useRouter } from 'next/router'
+import Router from 'next/router'
 import Link from 'next/link'
 
+import Logo from '@/components/Logo'
 import { LoginRequest } from '@/interfaces/login'
 import apiService from '@/services/api.service'
 
 import styles from './style.module.css'
-function SignIn(): JSX.Element {
-	const router = useRouter()
 
+function SignIn(): JSX.Element {
 	const formik = useFormik<LoginRequest>({
 		initialValues: {
 			email: '',
@@ -35,7 +35,7 @@ function SignIn(): JSX.Element {
 				})
 
 				Cookies.set('token', accessToken)
-				router.push('/')
+				Router.push('/')
 			} catch (error) {
 				console.error(error)
 			}
@@ -52,9 +52,8 @@ function SignIn(): JSX.Element {
 	return (
 		<div className={styles.signIn}>
 			<section className={styles.container}>
-				<Header as="h1" color="teal" textAlign="center">
-					Login your account
-				</Header>
+				<Logo />
+				<h1 className={styles.heading}>Sign in with your Chatty account</h1>
 				<Form className={styles.form} onSubmit={formik.handleSubmit}>
 					<div className={styles.formGroup}>
 						<Form.Input
@@ -85,17 +84,16 @@ function SignIn(): JSX.Element {
 						/>
 					</div>
 
-					<p>
-						You are not have an account yet. Go to{' '}
-						<Link href="/sign-up">
-							<a className={styles.signUpLink}>register an account</a>
-						</Link>{' '}
-						instead
-					</p>
-
 					<Button type="submit" color="teal" fluid size="large">
-						Login
+						Login with password
 					</Button>
+
+					<p className={styles.message}>
+						{`Don't have an account? `}
+						<Link href="/sign-up">
+							<a className={styles.signUpLink}>Register now!</a>
+						</Link>
+					</p>
 				</Form>
 			</section>
 		</div>

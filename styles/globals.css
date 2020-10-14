@@ -16,8 +16,9 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, 'Lato', Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-weight: 300;
 }
 
 a {
@@ -37,6 +38,11 @@ ul::-webkit-scrollbar {
 
 figure, p {
   margin: 0;
+}
+
+input,
+button {
+  font-weight: 300 !important;
 }
 
 * {

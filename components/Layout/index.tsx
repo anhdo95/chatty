@@ -38,7 +38,6 @@ function Layout(props: React.Props<unknown>): JSX.Element {
 
 	return (
 		<>
-			<Navigation />
 			<main className={styles.layout}>
 				{props.children}
 				<NotificationContainer />
