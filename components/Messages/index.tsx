@@ -24,7 +24,6 @@ function Messages(): JSX.Element {
 	const loggedInUser = useSelector<RootState, User>(state => state.user.loggedInUser)
 	const selectedRoom = useSelector<RootState, Conversation>(state => state.chat.selectedRoom)
 	const [hasMore, setHasMore] = useState<boolean>(!!selectedRoom)
-	const infiniteScrollEl = useRef<any>()
 	const messagesRef = useRef<HTMLUListElement>()
 
 	const dispatch = useDispatch()
@@ -39,32 +38,31 @@ function Messages(): JSX.Element {
 	useEffect(() => {
 		if (!selectedRoom) return
 
-		infiniteScrollEl.current.pageLoaded = 0
+		socket.join(selectedRoom.id)
 		setHasMore(true)
 	}, [selectedRoom])
 
 	const loadMessages = useCallback(
-		async function (page = 1) {
+		async function () {
 			try {
+				if (messages.totalItems && messages.items.length >= messages.totalItems) {
+					return setHasMore(false)
+				}
+
 				const nextMessages = await apiService.getMessages({
 					conversationId: selectedRoom.id,
 					limit: LIMIT,
-					offset: (page - 1) * LIMIT,
+					offset: messages.items.length,
 				})
 
 				nextMessages.items.reverse()
 
-				setHasMore(nextMessages.totalItems > page * LIMIT)
 				dispatch(
 					setMessages({
 						...nextMessages,
 						items: nextMessages.items.concat(messages.items),
 					})
 				)
-
-				if (page === 1) {
-					socket.join(selectedRoom.id)
-				}
 			} catch (error) {
 				console.error(error)
 			}
@@ -76,7 +74,6 @@ function Messages(): JSX.Element {
 		<ul ref={messagesRef} className={styles.messages}>
 			<InfiniteScroll
 				isReverse
-				ref={infiniteScrollEl}
 				threshold={200}
 				loadMore={loadMessages}
 				hasMore={hasMore}
