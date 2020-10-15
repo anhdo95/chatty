@@ -10,14 +10,11 @@ import { Messages as IMessages, Message } from '@/interfaces/message'
 import { User } from '@/interfaces/user'
 import { Conversation } from '@/interfaces/conversation'
 import socket from '@/core/socket'
+import { joinClass } from '@/util'
 
 import styles from './style.module.css'
 
 const LIMIT = 10
-
-function joinClass(...classes: string[]) {
-	return classes.filter(Boolean).join(' ')
-}
 
 function Messages(): JSX.Element {
 	const messages = useSelector<RootState, IMessages>(state => state.chat.messages)

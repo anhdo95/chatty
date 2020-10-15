@@ -1,0 +1,54 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 70px;
+  height: 100vh;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background: var(--color-primary);
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+  font-size: 1.25rem;
+  font-weight: 400;
+  background: var(--color-light);
+  border-radius: 50%;
+}
+
+.tabs {
+  margin-top: 3rem;
+}
+
+.tab,
+.iconBox {
+  display: block;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+}
+
+.tab:hover,
+.iconBox:hover,
+.tab.active {
+  background: var(--color-active);
+  cursor: pointer;
+}
+
+.tabIcon,
+.signOutIcon {
+  color: var(--color-light);
+}
+
+.signOutIcon {
+  transform: rotate(180deg);
+}
+
+.bottom {
+  margin-top: auto;
+}

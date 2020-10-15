@@ -4,6 +4,7 @@ import socket from '@/core/socket'
 import Rooms from '@/components/Rooms'
 import Messages from '@/components/Messages'
 import CommentBox from '@/components/CommentBox'
+import Sidebar from '@/components/Sidebar'
 
 import styles from './style.module.css'
 
@@ -18,7 +19,8 @@ function Chat(): JSX.Element {
 	return (
 		mounted && (
 			<section className={styles.chat}>
-				<h1 className={styles.heading}>Messaging</h1>
+				<Sidebar />
+				{/* <h1 className={styles.heading}>Messaging</h1>
 				<div className={styles.details}>
 					<div className={styles.rooms}>
 						<Rooms />
@@ -27,7 +29,7 @@ function Chat(): JSX.Element {
 						<Messages />
 						<CommentBox />
 					</div>
-				</div>
+				</div> */}
 			</section>
 		)
 	)

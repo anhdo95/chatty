@@ -2,13 +2,14 @@
 @import '~react-notifications/lib/notifications.css';
 
 :root {
-  --color-primary: #05728f;
+  --color-primary: #168fb1;
   --color-light: #f9f9f9;
   --color-dark: #646464;
   --color-grey: #c4c4c4;
   --color-grey-light: #ebebeb;
   --color-grey-dark: #747474;
   --color-link: #4183c4;
+  --color-active: #34a7c7;
   --color--menu-item: #2b7d94;
   --color--menu-item-active: #307183;
 
