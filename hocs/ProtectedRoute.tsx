@@ -1,4 +1,4 @@
-import React, { useEffect, FunctionComponent } from 'react'
+import React, { useEffect, useState, FunctionComponent } from 'react'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 
@@ -7,14 +7,16 @@ function withProtectedRoute(
 ): (props: React.Props<unknown>) => JSX.Element {
 	function WrappedComponent(props: React.Props<unknown>) {
 		const router = useRouter()
+		const [mounted, setMounted] = useState<boolean>(null)
 
 		useEffect(() => {
 			if (!Cookies.get('token')) {
 				router.replace('/sign-in')
 			}
+			setMounted(true)
 		}, [])
 
-		return <Component {...props} />
+		return mounted && <Component {...props} />
 	}
 
 	return WrappedComponent

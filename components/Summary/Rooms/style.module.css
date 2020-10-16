@@ -1,23 +1,10 @@
-.container {
-  display: grid;
-  align-content: start;
-  height: 80vh;
-  overflow: hidden;
-  background: var(--color-light);
-}
-
-.header {
+.label {
+  display: block;
   padding: 1rem;
-  border-bottom: var(--border);
-}
-
-.heading {
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: var(--color-primary);
 }
 
 .rooms {
+  max-height: calc(100vh - 142px);
   overflow-y: auto;
 }
 
@@ -27,19 +14,22 @@
   grid-gap: 1rem;
   padding: 1rem;
   cursor: pointer;
+
+  transition: background-color 0.2s ease-in-out;
 }
 
-.room:not(:last-child) {
-  border-bottom: var(--border);
-}
-
-.room.active {
-  background: var(--color-grey-light);
+.room.active,
+.room:hover {
+  background-color: var(--color-hover);
 }
 
 .thumb {
-  max-width: 40px;
-  max-height: 40px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background-color: var(--color-grey-light);
+  border-radius: 50%;
 }
 
 .avatar {
@@ -52,6 +42,7 @@
 .roomName {
   margin-bottom: 0.25rem;
   font-size: 1rem;
+  font-weight: 400;
 }
 
 .lastMessage,

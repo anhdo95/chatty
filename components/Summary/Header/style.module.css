@@ -1,0 +1,20 @@
+
+.header {
+  padding: 1rem;
+  border-bottom: var(--border);
+}
+
+.heading {
+  font-size: 1.25rem;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: auto max-content max-content;
+  grid-gap: 0.25rem;
+  align-items: center;
+}
+
+.icon {
+  cursor: pointer;
+}

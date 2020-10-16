@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import InfiniteScroll from 'react-infinite-scroller'
 import { formatDistance } from 'date-fns'
-import { useRouter } from 'next/router'
 
 import apiService from '@/services/api.service'
 import { RootState } from '@/store/reducers'
 import { setChatRooms, setSelectedRoom, resetMessages } from '@/store/actions/chat'
 import { Conversations, Conversation } from '@/interfaces/conversation'
+import { joinClass } from '@/util'
 
 import styles from './style.module.css'
 
@@ -17,20 +17,25 @@ function formatDate(date) {
 	return formatDistance(new Date(date), new Date())
 }
 
-function Rooms(props): JSX.Element {
+function Rooms(): JSX.Element {
 	const rooms = useSelector<RootState, Conversations>(state => state.chat.rooms)
+	const selectedRoom = useSelector<RootState, Conversation>(state => state.chat.selectedRoom)
+
 	const dispatch = useDispatch()
 	const [hasMore, setHasMore] = useState<boolean>(true)
 
 	const loadRooms = useCallback(
-		async function (page: number) {
+		async function () {
 			try {
 				const nextRooms = await apiService.getRooms({
 					limit: LIMIT,
-					offset: (page - 1) * LIMIT,
+					offset: rooms.items.length,
 				})
 
-				setHasMore(nextRooms.totalItems > page * LIMIT)
+				if (nextRooms.totalItems === rooms.items.length) {
+					setHasMore(false)
+				}
+
 				dispatch(
 					setChatRooms({
 						...nextRooms,
@@ -41,7 +46,7 @@ function Rooms(props): JSX.Element {
 				console.error(error)
 			}
 		},
-		[rooms]
+		[rooms, setHasMore]
 	)
 
 	function handleRoomClick(room: Conversation) {
@@ -53,25 +58,23 @@ function Rooms(props): JSX.Element {
 
 	return (
 		<section className={styles.container}>
-			<header className={styles.header}>
-				<strong className={styles.heading}>Recent</strong>
-			</header>
+			<span className={styles.label}>Messages</span>
 			<ul className={styles.rooms}>
-				<InfiniteScroll threshold={100} loadMore={loadRooms} hasMore={hasMore} useWindow={false}>
+				<InfiniteScroll threshold={150} loadMore={loadRooms} hasMore={hasMore} useWindow={false}>
 					{rooms.items.map(room => (
-						// eslint-disable-next-line
 						<li
-							className={[styles.room, styles.active].join(' ')}
+							className={joinClass(styles.room, selectedRoom?.id === room.id && styles.active)}
 							key={room.id}
 							onClick={handleRoomClick(room)}>
 							<figure className={styles.thumb}>
-								<img className={styles.avatar} src={room.coverPhoto} alt={room.name} />
+								{room.name.charAt(0).toUpperCase()}
+								{/* <img className={styles.avatar} src={room.coverPhoto} alt={room.name} /> */}
 							</figure>
 							<article className={styles.details}>
 								<h3 className={styles.roomName}>{room.name}</h3>
 								<p className={styles.lastMessage}>{room.lastMessage.content}</p>
 							</article>
-							<p className={styles.lastDate}>{formatDate(room.lastMessage.createdAt)}</p>
+							<p className={styles.lastDate}>{formatDate(room.lastMessage.createdAt)} ago</p>
 						</li>
 					))}
 				</InfiniteScroll>

@@ -19,6 +19,8 @@ function Sidebar() {
 	}
 
 	const handleSignOut = useCallback(function () {
+		if (!window.confirm('Are you sure?')) return
+
 		event.preventDefault()
 		dispatch(setLoggedInUser(null))
 		Cookies.remove('token')
