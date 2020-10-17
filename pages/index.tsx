@@ -1,5 +1,5 @@
 import React from 'react'
-import Chat from '@/components/Chat'
+import Chat from '@/modules/chat/components/Chat'
 
 function Home(): JSX.Element {
 	return <Chat />

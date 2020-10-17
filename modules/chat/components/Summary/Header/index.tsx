@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Form, Icon } from 'semantic-ui-react'
 
-import { RootState } from './node_modules/@/store/reducers'
-import { User } from './node_modules/@/shared/interfaces/user'
+import { RootState } from '@/store/reducers'
+import { User } from '@/shared/interfaces/user'
 
 import styles from './style.module.scss'
 
