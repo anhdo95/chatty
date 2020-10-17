@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from '@/components/Logo'
+import Logo from '@/shared/components/Logo'
 
 import styles from './style.module.scss'
 

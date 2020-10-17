@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Logo from '@/components/Logo'
+import Logo from '@/shared/components/Logo'
 import SignUpForm from '@/modules/auth/components/SignUpForm'
 
 import styles from './style.module.scss'

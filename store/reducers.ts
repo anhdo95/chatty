@@ -4,7 +4,7 @@ import { HYDRATE } from 'next-redux-wrapper'
 import auth, { AuthState } from '@/modules/auth/store/reducer'
 import chat, { ChatState } from '@/modules/chat/store/reducer'
 import { ResponseError } from '@/shared/interfaces/error'
-import { SET_ERROR } from '../actions'
+import { SET_ERROR } from './actions'
 
 export interface State {
 	client?: null
