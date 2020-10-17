@@ -11,7 +11,7 @@ import Welcome from '@/components/Welcome'
 import { RootState } from '@/store/reducers'
 import { Conversation } from '@/interfaces/conversation'
 import { User } from '@/interfaces/user'
-import styles from './style.module.css'
+import styles from './style.module.scss'
 
 function Chat(): JSX.Element {
 	const selectedRoom = useSelector<RootState, Conversation>(state => state.chat.selectedRoom)

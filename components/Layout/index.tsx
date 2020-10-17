@@ -11,9 +11,7 @@ import apiService from '@/services/api.service'
 import { ResponseError } from '@/interfaces/error'
 import { User } from '@/interfaces/user'
 
-import Navigation from '@/components/Navigation'
-
-import styles from './style.module.css'
+import styles from './style.module.scss'
 
 const notifyError = (error: ResponseError) => {
 	NotificationManager.error(error.message, 'Opps!', 5000)

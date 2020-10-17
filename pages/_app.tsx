@@ -3,7 +3,7 @@ import withProtectedRoute from '@/hocs/ProtectedRoute'
 import withAnonymousRoute from '@/hocs/AnonymousRoute'
 import Layout from '@/components/Layout'
 
-import '@/styles/globals.css'
+import '@/styles/globals.scss'
 
 function MyApp({ Component, pageProps }) {
 	let WrappedComponent = Component

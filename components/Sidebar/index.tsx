@@ -6,7 +6,7 @@ import Router from 'next/router'
 
 import { setLoggedInUser } from '@/store/actions/user'
 import { joinClass } from '@/util'
-import styles from './style.module.css'
+import styles from './style.module.scss'
 
 function Sidebar() {
 	const [activeTab, setActiveTab] = useState('chat')

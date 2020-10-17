@@ -11,7 +11,7 @@ import { Conversations, Conversation } from '@/interfaces/conversation'
 import { Message } from '@/interfaces/message'
 import { joinClass } from '@/util'
 
-import styles from './style.module.css'
+import styles from './style.module.scss'
 
 const LIMIT = 10
 

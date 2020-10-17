@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import { RootState } from '@/store/reducers'
 import { User } from '@/interfaces/user'
 
-import styles from './style.module.css'
+import styles from './style.module.scss'
 import { setLoggedInUser } from '@/store/actions/user'
 
 function Navigation(): JSX.Element {

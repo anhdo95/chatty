@@ -9,7 +9,7 @@ import Link from 'next/link'
 import { RegisterRequest } from '@/interfaces/register'
 import apiService from '@/services/api.service'
 
-import styles from './style.module.css'
+import styles from './style.module.scss'
 import Logo from '@/components/Logo'
 
 function SignUp(): JSX.Element {

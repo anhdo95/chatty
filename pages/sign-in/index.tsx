@@ -10,7 +10,7 @@ import Logo from '@/components/Logo'
 import { LoginRequest } from '@/interfaces/login'
 import apiService from '@/services/api.service'
 
-import styles from './style.module.css'
+import styles from './style.module.scss'
 
 function SignIn(): JSX.Element {
 	const formik = useFormik<LoginRequest>({

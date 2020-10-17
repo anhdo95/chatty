@@ -6,7 +6,7 @@ import { useSocket } from '@/contexts/socket'
 import { RootState } from '@/store/reducers'
 import { Conversation } from '@/interfaces/conversation'
 
-import styles from './style.module.css'
+import styles from './style.module.scss'
 
 function CommentBox(): JSX.Element {
 	const selectedRoom = useSelector<RootState, Conversation>(state => state.chat.selectedRoom)

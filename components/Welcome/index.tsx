@@ -1,7 +1,7 @@
 import React from 'react'
 import Logo from '@/components/Logo'
 
-import styles from './style.module.css'
+import styles from './style.module.scss'
 
 function Welcome() {
 	return (

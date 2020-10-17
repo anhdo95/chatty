@@ -5,7 +5,7 @@ import { Form, Icon } from 'semantic-ui-react'
 import { RootState } from '@/store/reducers'
 import { User } from '@/interfaces/user'
 
-import styles from './style.module.css'
+import styles from './style.module.scss'
 
 function Header() {
 	const loggedInUser = useSelector<RootState, User>(state => state.user.loggedInUser)
