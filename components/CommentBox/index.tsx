@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 import socket from '@/core/socket'
 import { RootState } from '@/store/reducers'
-import { Conversation } from '@/shared/interfaces/conversation'
+import { Conversation } from '@/modules/chat/interfaces/conversation'
 
 import styles from './style.module.scss'
 

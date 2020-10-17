@@ -9,7 +9,7 @@ import Summary from '@/components/Summary'
 import Welcome from '@/components/Welcome'
 
 import { RootState } from '@/store/reducers'
-import { Conversation } from '@/shared/interfaces/conversation'
+import { Conversation } from '@/modules/chat/interfaces/conversation'
 import { User } from '@/shared/interfaces/user'
 import styles from './style.module.scss'
 

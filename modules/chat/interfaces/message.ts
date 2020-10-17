@@ -1,4 +1,4 @@
-import { User } from './user'
+import { User } from '../../../shared/interfaces/user'
 import { Conversation } from './conversation'
 
 export interface MessagesRequest {

@@ -6,19 +6,19 @@ import {
 	SET_CHAT_ROOMS,
 	SET_SELECTED_ROOM,
 	RESET_CHAT_MESSAGES,
-} from '@/store/actions/chat'
+} from './actions'
 import { User } from '@/shared/interfaces/user'
-import { Messages } from '@/shared/interfaces/message'
-import { Conversations, Conversation } from '@/shared/interfaces/conversation'
+import { Messages } from '@/modules/chat/interfaces/message'
+import { Conversations, Conversation } from '@/modules/chat/interfaces/conversation'
 
-export interface State {
+export interface ChatState {
 	rooms: Conversations
 	selectedRoom: Conversation
 	messages: Messages
 	owner: User
 }
 
-const initialState: State = {
+const initialState: ChatState = {
 	rooms: {
 		items: [],
 		totalItems: 0,
@@ -31,7 +31,7 @@ const initialState: State = {
 	owner: null,
 }
 
-function reducer(state: State = initialState, action: AnyAction): State {
+function reducer(state: ChatState = initialState, action: AnyAction): ChatState {
 	switch (action.type) {
 		case SET_CHAT_MESSAGES:
 			return { ...state, messages: action.payload }

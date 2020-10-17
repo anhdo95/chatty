@@ -1,7 +1,7 @@
 import io from 'socket.io-client'
 import Cookies from 'js-cookie'
-import { Message, MessageRequest } from '@/shared/interfaces/message'
-import { ConversationRequest } from '@/shared/interfaces/conversation'
+import { Message, MessageRequest } from '@/modules/chat/interfaces/message'
+import { ConversationRequest } from '@/modules/chat/interfaces/conversation'
 
 export interface ClientSocket {
 	socket: SocketIOClient.Socket

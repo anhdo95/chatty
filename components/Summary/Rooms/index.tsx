@@ -6,9 +6,14 @@ import { formatDistance } from 'date-fns'
 import socket from '@/core/socket'
 import apiService from '@/services/api.service'
 import { RootState } from '@/store/reducers'
-import { setChatRooms, setSelectedRoom, resetMessages, addMessage } from '@/store/actions/chat'
-import { Conversations, Conversation } from '@/shared/interfaces/conversation'
-import { Message } from '@/shared/interfaces/message'
+import {
+	setChatRooms,
+	setSelectedRoom,
+	resetMessages,
+	addMessage,
+} from '@/modules/chat/store/actions'
+import { Conversations, Conversation } from '@/modules/chat/interfaces/conversation'
+import { Message } from '@/modules/chat/interfaces/message'
 import { classes } from '@/shared/util'
 
 import styles from './style.module.scss'

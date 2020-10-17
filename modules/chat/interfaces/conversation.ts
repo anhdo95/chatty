@@ -1,4 +1,4 @@
-import { ConversationType } from '@/shared/enums/conversation'
+import { ConversationType } from '@/modules/chat/enums/conversation'
 import { Message } from './message'
 
 export interface ConversationsRequest {
