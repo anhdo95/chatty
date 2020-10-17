@@ -3,21 +3,6 @@ import Cookies from 'js-cookie'
 import { User } from '@/interfaces/chat'
 import { Message, MessageRequest } from '@/interfaces/message'
 
-// const socketOptions: SocketIOClient.ConnectOpts = {
-// 	transportOptions: {
-// 		polling: {
-// 			extraHeaders: {
-// 				Authorization:
-// 					'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInN1YiI6NiwiaWF0IjoxNjAyNTEyMzg2LCJleHAiOjE2MzQwNjk5ODZ9.EcpDv-VUslsCN_M9j7s98RBFONpChDO6jZb2DuITPM0',
-// 			},
-// 		},
-// 	},
-// }
-
-// const socket: SocketIOClient.Socket = io('localhost:8001', socketOptions)
-
-// console.log('socket access')
-
 export interface ClientSocket {
 	socket: SocketIOClient.Socket
 	init: () => void

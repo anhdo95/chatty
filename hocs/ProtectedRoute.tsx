@@ -12,8 +12,9 @@ function withProtectedRoute(
 		useEffect(() => {
 			if (!Cookies.get('token')) {
 				router.replace('/sign-in')
+			} else {
+				setMounted(true)
 			}
-			setMounted(true)
 		}, [])
 
 		return mounted && <Component {...props} />
