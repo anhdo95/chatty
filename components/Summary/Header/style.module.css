@@ -6,6 +6,9 @@
 
 .heading {
   font-size: 1.25rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .actions {

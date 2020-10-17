@@ -7,7 +7,7 @@ import {
 	SET_SELECTED_ROOM,
 	RESET_CHAT_MESSAGES,
 } from '@/store/actions/chat'
-import { User } from '@/interfaces/chat'
+import { User } from '@/interfaces/user'
 import { Messages } from '@/interfaces/message'
 import { Conversations, Conversation } from '@/interfaces/conversation'
 

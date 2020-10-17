@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Form, Icon } from 'semantic-ui-react'
+
+import { RootState } from '@/store/reducers'
+import { User } from '@/interfaces/user'
 
 import styles from './style.module.css'
 
 function Header() {
+	const loggedInUser = useSelector<RootState, User>(state => state.user.loggedInUser)
 	const [searchTerm, setSearchTerm] = useState()
 
 	function handleChange(event) {
@@ -16,7 +21,7 @@ function Header() {
 
 	return (
 		<header className={styles.header}>
-			<h1 className={styles.heading}>Chatty - Do Dinh Anh</h1>
+			<h1 className={styles.heading}>Chatty - {loggedInUser.name}</h1>
 			<div className={styles.actions}>
 				<Form onSubmit={handleSubmit}>
 					<Form.Input
