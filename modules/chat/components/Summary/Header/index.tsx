@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Form, Icon } from 'semantic-ui-react'
 
+import AddFriendModal from '@/modules/chat/components/AddFriendModal'
+
 import { RootState } from '@/store/reducers'
 import { User } from '@/shared/interfaces/user'
 
@@ -35,8 +37,8 @@ function Header() {
 						onChange={handleChange}
 					/>
 				</Form>
-				<Icon className={styles.icon} name="user outline" size="large" />
-				<Icon className={styles.icon} name="plus square outline" size="large" />
+				<AddFriendModal trigger={<Icon className={styles.icon} name="user outline" />} />
+				<Icon className={styles.icon} name="plus square outline" />
 			</div>
 		</header>
 	)
