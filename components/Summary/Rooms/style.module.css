@@ -10,7 +10,7 @@
 
 .room {
   display: grid;
-  grid-template-columns: 40px minmax(0, 1fr) max-content;
+  grid-template-columns: 40px minmax(0, 1fr);
   grid-gap: 1rem;
   padding: 1rem;
   cursor: pointer;
@@ -43,10 +43,6 @@
   margin-bottom: 0.25rem;
   font-size: 1rem;
   font-weight: 400;
-
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
 }
 
 .lastMessage,
@@ -55,5 +51,6 @@
 }
 
 .lastDate {
+  margin-top: 0.5rem;
   font-size: 0.75rem;
 }

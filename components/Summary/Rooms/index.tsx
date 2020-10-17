@@ -81,10 +81,12 @@ function Rooms(): JSX.Element {
 								{/* <img className={styles.avatar} src={room.coverPhoto} alt={room.name} /> */}
 							</figure>
 							<article className={styles.details}>
-								<h3 className={styles.roomName}>{room.name}</h3>
-								<p className={styles.lastMessage}>{room.lastMessage.content}</p>
+								<h3 className={joinClass('text-ellipsis', styles.roomName)}>{room.name}</h3>
+								<p className={joinClass('text-ellipsis', styles.lastMessage)}>
+									{room.lastMessage.content}
+								</p>
+								<p className={styles.lastDate}>{formatDate(room.lastMessage.createdAt)} ago</p>
 							</article>
-							<p className={styles.lastDate}>{formatDate(room.lastMessage.createdAt)} ago</p>
 						</li>
 					))}
 				</InfiniteScroll>
