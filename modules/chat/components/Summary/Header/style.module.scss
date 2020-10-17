@@ -1,7 +1,9 @@
 
+@import '@/styles/variables';
+
 .header {
   padding: 1rem;
-  border-bottom: var(--border);
+  border-bottom: $border;
 }
 
 .heading {

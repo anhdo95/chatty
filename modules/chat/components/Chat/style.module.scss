@@ -1,3 +1,5 @@
+@import '@/styles/variables';
+
 .chat {
   display: flex;
 }
@@ -9,11 +11,11 @@
 .details {
   display: grid;
   grid-template-columns: minmax(250px, 3fr) 7fr;
-  border: var(--border);
+  border: $border;
 }
 
 .rooms {
-  border-right: var(--border);
+  border-right: $border;
 }
 
 .conversation {

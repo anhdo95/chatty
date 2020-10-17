@@ -1,20 +1,11 @@
 @import '~semantic-ui-css/semantic.min.css';
 @import '~react-notifications/lib/notifications.css';
 
-:root {
-  --color-primary: #009c95;
-  --color-light: #f9f9f9;
-  --color-dark: #646464;
-  --color-grey: #c4c4c4;
-  --color-grey-light: #ebebeb;
-  --color-grey-dark: #747474;
-  --color-link: #4183c4;
-  --color-active: #1fb8b0;
-  --color-hover: #168fb11a;
-  --color--menu-item: #2b7d94;
-  --color--menu-item-active: #307183;
+@import '@/styles/variables';
 
-  --border: 1px solid #c4c4c4;
+
+* {
+  box-sizing: border-box;
 }
 
 html,
@@ -42,7 +33,7 @@ ul::-webkit-scrollbar {
 }
 
 ul::-webkit-scrollbar-track {
-  background-color: var(--color-light);
+  background-color: $color-light;
   border-radius: 100px;
 }
 
@@ -53,10 +44,6 @@ figure, p {
 input,
 button {
   font-weight: 300 !important;
-}
-
-* {
-  box-sizing: border-box;
 }
 
 .text-ellipsis {

@@ -1,3 +1,5 @@
+@import '@/styles/variables';
+
 .messages {
   height: calc(100vh - 50px);
   overflow-y: auto;
@@ -27,7 +29,7 @@
   height: 30px;
   line-height: 30px;
   text-align: center;
-  background-color: var(--color-grey-light);
+  background-color: $color-grey-light;
   border-radius: 50%;
 }
 
@@ -41,7 +43,7 @@
 .details {
   max-width: 50%;
   margin-left: 0.5rem;
-  color: var(--color-dark);
+  color: $color-dark;
 }
 
 .details.system {
@@ -54,19 +56,19 @@
 
 .text {
   padding: 1rem;
-  background: var(--color-grey-light);
+  background: $color-grey-light;
   border-radius: 0.25rem;
 
   &.system {
     padding: 0.25rem 1rem;
-    color: var(--color-light);
-    background-color: var(--color-dark);
+    color: $color-light;
+    background-color: $color-dark;
   }
 }
 
 .text.sender {
-  color: var(--color-light);
-  background: var(--color-primary);
+  color: $color-light;
+  background: $color-primary;
 }
 
 .name {
