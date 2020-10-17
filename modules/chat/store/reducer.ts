@@ -2,12 +2,10 @@ import { AnyAction } from 'redux'
 import {
 	SET_CHAT_MESSAGES,
 	ADD_CHAT_MESSAGE,
-	SET_CHAT_OWNER,
 	SET_CHAT_ROOMS,
 	SET_SELECTED_ROOM,
 	RESET_CHAT_MESSAGES,
 } from './actions'
-import { User } from '@/shared/interfaces/user'
 import { Messages } from '@/modules/chat/interfaces/message'
 import { Conversations, Conversation } from '@/modules/chat/interfaces/conversation'
 
@@ -15,7 +13,6 @@ export interface ChatState {
 	rooms: Conversations
 	selectedRoom: Conversation
 	messages: Messages
-	owner: User
 }
 
 const initialState: ChatState = {
@@ -28,7 +25,6 @@ const initialState: ChatState = {
 		items: [],
 		totalItems: 0,
 	},
-	owner: null,
 }
 
 function reducer(state: ChatState = initialState, action: AnyAction): ChatState {
@@ -66,9 +62,6 @@ function reducer(state: ChatState = initialState, action: AnyAction): ChatState 
 					...state.rooms,
 				},
 			}
-
-		case SET_CHAT_OWNER:
-			return { ...state, owner: action.payload }
 
 		case SET_CHAT_ROOMS:
 			return { ...state, rooms: action.payload }

@@ -1,3 +1,13 @@
+export interface UsersRequest {
+	limit: number
+	offset: number
+}
+
+export interface Users {
+	items: User[]
+	totalItems: number
+}
+
 export interface User {
 	id: number
 	name: string
