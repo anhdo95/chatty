@@ -1,16 +1,16 @@
 import { AnyAction } from 'redux'
-import { SET_LOGGED_IN_USER } from '@/store/actions/user'
+import { SET_LOGGED_IN_USER } from './actions'
 import { User } from '@/shared/interfaces/user'
 
-export interface State {
+export interface AuthState {
 	loggedInUser: User
 }
 
-const initialState: State = {
+const initialState: AuthState = {
 	loggedInUser: null,
 }
 
-function reducer(state: State = initialState, action: AnyAction): State {
+function reducer(state: AuthState = initialState, action: AnyAction): AuthState {
 	switch (action.type) {
 		case SET_LOGGED_IN_USER:
 			return { ...state, loggedInUser: action.payload }

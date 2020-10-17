@@ -4,7 +4,7 @@ import { Icon } from 'semantic-ui-react'
 import Cookies from 'js-cookie'
 import Router from 'next/router'
 
-import { setLoggedInUser } from '@/store/actions/user'
+import { setLoggedInUser } from '@/modules/auth/store/actions'
 import { classes } from '@/shared/util'
 import styles from './style.module.scss'
 

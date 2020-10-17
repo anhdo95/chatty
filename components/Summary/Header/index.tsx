@@ -8,7 +8,7 @@ import { User } from '@/shared/interfaces/user'
 import styles from './style.module.scss'
 
 function Header() {
-	const loggedInUser = useSelector<RootState, User>(state => state.user.loggedInUser)
+	const loggedInUser = useSelector<RootState, User>(state => state.auth.loggedInUser)
 	const [searchTerm, setSearchTerm] = useState()
 
 	function handleChange(event) {

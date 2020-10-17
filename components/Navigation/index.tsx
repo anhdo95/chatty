@@ -9,10 +9,10 @@ import { RootState } from '@/store/reducers'
 import { User } from '@/shared/interfaces/user'
 
 import styles from './style.module.scss'
-import { setLoggedInUser } from '@/store/actions/user'
+import { setLoggedInUser } from '@/modules/auth/store/actions'
 
 function Navigation(): JSX.Element {
-	const loggedInUser = useSelector<RootState, User>(state => state.user.loggedInUser)
+	const loggedInUser = useSelector<RootState, User>(state => state.auth.loggedInUser)
 	const router = useRouter()
 	const dispatch = useDispatch()
 	const [activeItem, setActiveItem] = useState<string>()

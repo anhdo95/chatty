@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 import socket from '@/core/socket'
@@ -15,7 +15,7 @@ import styles from './style.module.scss'
 
 function Chat(): JSX.Element {
 	const selectedRoom = useSelector<RootState, Conversation>(state => state.chat.selectedRoom)
-	const loggedInUser = useSelector<RootState, User>(state => state.user.loggedInUser)
+	const loggedInUser = useSelector<RootState, User>(state => state.auth.loggedInUser)
 
 	useEffect(() => {
 		socket.init()

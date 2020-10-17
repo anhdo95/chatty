@@ -5,7 +5,7 @@ import Cookies from 'js-cookie'
 
 import { RootState } from '@/store/reducers'
 import { setError } from '@/store/actions'
-import { setLoggedInUser } from '@/store/actions/user'
+import { setLoggedInUser } from '@/modules/auth/store/actions'
 import apiService from '@/services/api.service'
 
 import { ResponseError } from '@/shared/interfaces/error'
@@ -19,7 +19,7 @@ const notifyError = (error: ResponseError) => {
 
 function Layout(props: React.Props<unknown>): JSX.Element {
 	const error = useSelector<RootState, ResponseError>(state => state.app.error)
-	const loggedInUser = useSelector<RootState, User>(state => state.user.loggedInUser)
+	const loggedInUser = useSelector<RootState, User>(state => state.auth.loggedInUser)
 	const dispatch = useDispatch()
 
 	if (error) {

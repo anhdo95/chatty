@@ -18,7 +18,7 @@ const LIMIT = 10
 
 function Messages(): JSX.Element {
 	const messages = useSelector<RootState, IMessages>(state => state.chat.messages)
-	const loggedInUser = useSelector<RootState, User>(state => state.user.loggedInUser)
+	const loggedInUser = useSelector<RootState, User>(state => state.auth.loggedInUser)
 	const selectedRoom = useSelector<RootState, Conversation>(state => state.chat.selectedRoom)
 	const [hasMore, setHasMore] = useState<boolean>(!!selectedRoom)
 	const messagesRef = useRef<HTMLUListElement>()
