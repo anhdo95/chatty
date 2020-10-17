@@ -1,0 +1,15 @@
+.welcome {
+  height: 100%;
+}
+
+.container {
+  display: grid;
+  grid-gap: 1.5rem;
+  max-width: 400px;
+  margin: 10rem auto;
+  text-align: center;
+}
+
+.title {
+  font-size: 24px;
+}

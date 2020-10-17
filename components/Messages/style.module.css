@@ -1,11 +1,11 @@
 .messages {
+  height: calc(100vh - 50px);
   overflow-y: auto;
+  padding: 1.25rem;
 }
 
 .message {
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  grid-gap: 1rem;
+  display: flex;
 }
 
 .message:not(:last-child) {
@@ -25,6 +25,10 @@
 .thumb {
   width: 30px;
   height: 30px;
+  line-height: 30px;
+  text-align: center;
+  background-color: var(--color-grey-light);
+  border-radius: 50%;
 }
 
 .avatar {
@@ -36,6 +40,7 @@
 
 .details {
   max-width: 50%;
+  margin-left: 0.5rem;
   color: var(--color-dark);
 }
 

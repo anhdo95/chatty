@@ -2,11 +2,13 @@
   display: grid;
   grid-template-columns: 1fr max-content;
   align-items: center;
+  height: 50px;
   border-top: var(--border);
 }
 
 .input {
-  padding: 1rem 0;
+  height: 100%;
+  padding: 0 1.5rem;
   border: none !important;
 }
 

@@ -15,8 +15,8 @@ import styles from './style.module.css'
 function SignIn(): JSX.Element {
 	const formik = useFormik<LoginRequest>({
 		initialValues: {
-			email: '',
-			password: '',
+			email: 'richarddo@gmail.com',
+			password: 'P@ssword1',
 		},
 		validationSchema: Yup.object({
 			password: Yup.string()

@@ -28,7 +28,9 @@ function Messages(): JSX.Element {
 	useEffect(() => {
 		socket.receiveMessage((message: Message) => {
 			dispatch(addMessage(message))
-			messagesRef.current.scrollTo(0, messagesRef.current.scrollHeight)
+			if (message.user.id === loggedInUser.id) {
+				messagesRef.current.scrollTo(0, messagesRef.current.scrollHeight)
+			}
 		})
 	}, [])
 
@@ -80,13 +82,14 @@ function Messages(): JSX.Element {
 
 					return (
 						<li className={joinClass(styles.message, isOwner && styles.sender)} key={message.id}>
-							{!isOwner && (
+							{!isOwner && message.user?.name && (
 								<figure className={styles.thumb}>
-									<img
+									{message.user.name.charAt(0).toUpperCase()}
+									{/* <img
 										className={styles.avatar}
 										src="https://www.fromital.com/img/img_avatar_4.png"
 										alt={message.user && message.user.name}
-									/>
+									/> */}
 								</figure>
 							)}
 							<div className={joinClass(styles.details, isOwner && styles.sender)}>

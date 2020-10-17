@@ -17,10 +17,6 @@
 }
 
 .conversation {
-  display: grid;
-  grid-template-rows: 1fr auto;
-  grid-gap: 1rem;
-  height: 80vh;
+  flex: 1;
   overflow: hidden;
-  padding: 2rem 2rem 0 2rem;
 }
