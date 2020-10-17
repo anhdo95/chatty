@@ -1,12 +1,14 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import InfiniteScroll from 'react-infinite-scroller'
 import { formatDistance } from 'date-fns'
 
+import socket from '@/core/socket'
 import apiService from '@/services/api.service'
 import { RootState } from '@/store/reducers'
-import { setChatRooms, setSelectedRoom, resetMessages } from '@/store/actions/chat'
+import { setChatRooms, setSelectedRoom, resetMessages, addMessage } from '@/store/actions/chat'
 import { Conversations, Conversation } from '@/interfaces/conversation'
+import { Message } from '@/interfaces/message'
 import { joinClass } from '@/util'
 
 import styles from './style.module.css'
@@ -24,6 +26,12 @@ function Rooms(): JSX.Element {
 	const dispatch = useDispatch()
 	const [hasMore, setHasMore] = useState<boolean>(true)
 
+	useEffect(() => {
+		socket.receiveMessage((message: Message) => {
+			dispatch(addMessage(message))
+		})
+	}, [])
+
 	const loadRooms = useCallback(
 		async function () {
 			try {
@@ -35,6 +43,8 @@ function Rooms(): JSX.Element {
 				if (nextRooms.totalItems === rooms.items.length) {
 					setHasMore(false)
 				}
+
+				nextRooms.items.forEach(room => socket.join(room.id))
 
 				dispatch(
 					setChatRooms({

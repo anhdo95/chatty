@@ -46,13 +46,24 @@ function reducer(state: State = initialState, action: AnyAction): State {
 			}
 
 		case ADD_CHAT_MESSAGE:
-			state.messages.items.push.call(state.messages.items, action.payload)
+			state.rooms.items = state.rooms.items.map(room => {
+				if (room.id === action.payload.conversationId) {
+					room.lastMessage = action.payload
+				}
+				return room
+			})
+
+			if (state.selectedRoom?.id === action.payload.conversationId) {
+				state.messages.items.push.call(state.messages.items, action.payload)
+			}
 
 			return {
 				...state,
 				messages: {
 					...state.messages,
-					// items: { ...state.messages.items },
+				},
+				rooms: {
+					...state.rooms,
 				},
 			}
 

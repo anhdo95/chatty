@@ -1,4 +1,5 @@
 import { User } from './user'
+import { Conversation } from './conversation'
 
 export interface MessagesRequest {
 	conversationId: number
@@ -18,6 +19,8 @@ export interface Messages {
 
 export interface Message {
 	id: number
+	conversationId: number
+	conversation?: Conversation
 	user?: User
 	content: string
 	createdAt: Date

@@ -4,7 +4,7 @@ import InfiniteScroll from 'react-infinite-scroller'
 import ReactEmoji from 'react-emoji'
 
 import { RootState } from '@/store/reducers'
-import { setMessages, addMessage } from '@/store/actions/chat'
+import { setMessages } from '@/store/actions/chat'
 import apiService from '@/services/api.service'
 import { Messages as IMessages, Message } from '@/interfaces/message'
 import { User } from '@/interfaces/user'
@@ -27,7 +27,6 @@ function Messages(): JSX.Element {
 
 	useEffect(() => {
 		socket.receiveMessage((message: Message) => {
-			dispatch(addMessage(message))
 			if (message.user.id === loggedInUser.id) {
 				messagesRef.current.scrollTo(0, messagesRef.current.scrollHeight)
 			}
@@ -37,7 +36,6 @@ function Messages(): JSX.Element {
 	useEffect(() => {
 		if (!selectedRoom) return
 
-		socket.join(selectedRoom.id)
 		setHasMore(true)
 	}, [selectedRoom])
 

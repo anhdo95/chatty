@@ -1,12 +1,12 @@
 import io from 'socket.io-client'
 import Cookies from 'js-cookie'
 import { Message, MessageRequest } from '@/interfaces/message'
-import { User } from '@/interfaces/user'
+import { ConversationRequest } from '@/interfaces/conversation'
 
 export interface ClientSocket {
 	socket: SocketIOClient.Socket
 	init: () => void
-	join(conversationId: number): Promise<User>
+	join(conversationId: number): Promise<ConversationRequest>
 	receiveMessage(callback: (message: Message) => void): void
 	sendMessage(message: MessageRequest): void
 	unsubscribe(): void
@@ -30,16 +30,11 @@ const clientSocket: ClientSocket = {
 		console.log('this.socket', this.socket)
 	},
 
-	join(conversationId: number): Promise<User> {
-		return new Promise((resolve, reject) => {
-			function handleError(result) {
-				resolve()
-				console.log('user11', result)
-				// if (error) return reject(error)
-				// resolve({
-				// 	...user,
-				// 	id: socket.id,
-				// })
+	join(conversationId: number): Promise<ConversationRequest> {
+		return new Promise(resolve => {
+			function handleError(result: ConversationRequest) {
+				console.log('join', result)
+				resolve(result)
 			}
 
 			this.socket.emit('join', conversationId, handleError)
