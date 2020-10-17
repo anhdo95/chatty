@@ -76,9 +76,17 @@ function Messages(): JSX.Element {
 				hasMore={hasMore}
 				useWindow={false}>
 				{messages.items.map(message => {
+					const isSystem = !message.user
+
 					const isOwner = message.user?.id === loggedInUser.id
-					const textClass = classes(styles.text, { [styles.sender]: isOwner })
-					const detailsClass = classes(styles.details, { [styles.sender]: isOwner })
+					const textClass = classes(styles.text, {
+						[styles.sender]: isOwner,
+						[styles.system]: isSystem,
+					})
+					const detailsClass = classes(styles.details, {
+						[styles.sender]: isOwner,
+						[styles.system]: isSystem,
+					})
 					const showThumb = !isOwner && message.user?.name
 
 					return (
