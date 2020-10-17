@@ -1,7 +1,7 @@
 import io from 'socket.io-client'
 import Cookies from 'js-cookie'
-import { Message, MessageRequest } from '@/interfaces/message'
-import { ConversationRequest } from '@/interfaces/conversation'
+import { Message, MessageRequest } from '@/shared/interfaces/message'
+import { ConversationRequest } from '@/shared/interfaces/conversation'
 
 export interface ClientSocket {
 	socket: SocketIOClient.Socket
@@ -27,7 +27,6 @@ const clientSocket: ClientSocket = {
 		}
 
 		this.socket = io('localhost:8001', options)
-		console.log('this.socket', this.socket)
 	},
 
 	join(conversationId: number): Promise<ConversationRequest> {

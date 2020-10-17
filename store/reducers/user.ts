@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux'
 import { SET_LOGGED_IN_USER } from '@/store/actions/user'
-import { User } from '@/interfaces/user'
+import { User } from '@/shared/interfaces/user'
 
 export interface State {
 	loggedInUser: User

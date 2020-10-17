@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { RootState } from '@/store/reducers'
-import { User } from '@/interfaces/user'
+import { User } from '@/shared/interfaces/user'
 
 import styles from './style.module.scss'
 import { setLoggedInUser } from '@/store/actions/user'

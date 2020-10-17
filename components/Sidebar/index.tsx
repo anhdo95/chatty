@@ -5,7 +5,7 @@ import Cookies from 'js-cookie'
 import Router from 'next/router'
 
 import { setLoggedInUser } from '@/store/actions/user'
-import { joinClass } from '@/util'
+import { classes } from '@/shared/util'
 import styles from './style.module.scss'
 
 function Sidebar() {
@@ -33,12 +33,12 @@ function Sidebar() {
 			<div className={styles.avatar}>A</div>
 			<ul className={styles.tabs}>
 				<li
-					className={joinClass(styles.tab, activeTab === 'chat' && styles.active)}
+					className={classes(styles.tab, { [styles.active]: activeTab === 'chat' })}
 					onClick={handleTabClick('chat')}>
 					<Icon className={styles.tabIcon} size="big" name="comment alternate outline" />
 				</li>
 				<li
-					className={joinClass(styles.tab, activeTab === 'friends' && styles.active)}
+					className={classes(styles.tab, { [styles.active]: activeTab === 'friends' })}
 					onClick={handleTabClick('friends')}>
 					<Icon className={styles.tabIcon} size="big" name="address book outline" />
 				</li>

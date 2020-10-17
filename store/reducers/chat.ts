@@ -7,9 +7,9 @@ import {
 	SET_SELECTED_ROOM,
 	RESET_CHAT_MESSAGES,
 } from '@/store/actions/chat'
-import { User } from '@/interfaces/user'
-import { Messages } from '@/interfaces/message'
-import { Conversations, Conversation } from '@/interfaces/conversation'
+import { User } from '@/shared/interfaces/user'
+import { Messages } from '@/shared/interfaces/message'
+import { Conversations, Conversation } from '@/shared/interfaces/conversation'
 
 export interface State {
 	rooms: Conversations

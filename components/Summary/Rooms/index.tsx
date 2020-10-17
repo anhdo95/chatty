@@ -7,9 +7,9 @@ import socket from '@/core/socket'
 import apiService from '@/services/api.service'
 import { RootState } from '@/store/reducers'
 import { setChatRooms, setSelectedRoom, resetMessages, addMessage } from '@/store/actions/chat'
-import { Conversations, Conversation } from '@/interfaces/conversation'
-import { Message } from '@/interfaces/message'
-import { joinClass } from '@/util'
+import { Conversations, Conversation } from '@/shared/interfaces/conversation'
+import { Message } from '@/shared/interfaces/message'
+import { classes } from '@/shared/util'
 
 import styles from './style.module.scss'
 
@@ -73,7 +73,7 @@ function Rooms(): JSX.Element {
 				<InfiniteScroll threshold={150} loadMore={loadRooms} hasMore={hasMore} useWindow={false}>
 					{rooms.items.map(room => (
 						<li
-							className={joinClass(styles.room, selectedRoom?.id === room.id && styles.active)}
+							className={classes(styles.room, { [styles.active]: selectedRoom?.id === room.id })}
 							key={room.id}
 							onClick={handleRoomClick(room)}>
 							<figure className={styles.thumb}>
@@ -81,8 +81,8 @@ function Rooms(): JSX.Element {
 								{/* <img className={styles.avatar} src={room.coverPhoto} alt={room.name} /> */}
 							</figure>
 							<article className={styles.details}>
-								<h3 className={joinClass('text-ellipsis', styles.roomName)}>{room.name}</h3>
-								<p className={joinClass('text-ellipsis', styles.lastMessage)}>
+								<h3 className={classes('text-ellipsis', styles.roomName)}>{room.name}</h3>
+								<p className={classes('text-ellipsis', styles.lastMessage)}>
 									{room.lastMessage.content}
 								</p>
 								<p className={styles.lastDate}>{formatDate(room.lastMessage.createdAt)} ago</p>

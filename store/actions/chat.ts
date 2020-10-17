@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux'
-import { User } from '@/interfaces/user'
-import { Conversations, Conversation } from '@/interfaces/conversation'
-import { Messages, Message } from '@/interfaces/message'
+import { User } from '@/shared/interfaces/user'
+import { Conversations, Conversation } from '@/shared/interfaces/conversation'
+import { Messages, Message } from '@/shared/interfaces/message'
 
 export const SET_CHAT_MESSAGES = 'SET_CHAT_MESSAGES'
 export const RESET_CHAT_MESSAGES = 'RESET_CHAT_MESSAGES'

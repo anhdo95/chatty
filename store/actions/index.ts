@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux'
-import { ResponseError } from '@/interfaces/error'
+import { ResponseError } from '@/shared/interfaces/error'
 
 export const SET_ERROR = 'SET_ERROR'
 

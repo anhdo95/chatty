@@ -8,8 +8,8 @@ import { setError } from '@/store/actions'
 import { setLoggedInUser } from '@/store/actions/user'
 import apiService from '@/services/api.service'
 
-import { ResponseError } from '@/interfaces/error'
-import { User } from '@/interfaces/user'
+import { ResponseError } from '@/shared/interfaces/error'
+import { User } from '@/shared/interfaces/user'
 
 import styles from './style.module.scss'
 

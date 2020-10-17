@@ -3,7 +3,7 @@ import { HYDRATE } from 'next-redux-wrapper'
 
 import chat, { State as ChatState } from './chat'
 import user, { State as UserState } from './user'
-import { ResponseError } from '@/interfaces/error'
+import { ResponseError } from '@/shared/interfaces/error'
 import { SET_ERROR } from '../actions'
 
 export interface State {

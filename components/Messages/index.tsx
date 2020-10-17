@@ -6,11 +6,11 @@ import ReactEmoji from 'react-emoji'
 import { RootState } from '@/store/reducers'
 import { setMessages } from '@/store/actions/chat'
 import apiService from '@/services/api.service'
-import { Messages as IMessages, Message } from '@/interfaces/message'
-import { User } from '@/interfaces/user'
-import { Conversation } from '@/interfaces/conversation'
+import { Messages as IMessages, Message } from '@/shared/interfaces/message'
+import { User } from '@/shared/interfaces/user'
+import { Conversation } from '@/shared/interfaces/conversation'
 import socket from '@/core/socket'
-import { joinClass } from '@/util'
+import { classes } from '@/shared/util'
 
 import styles from './style.module.scss'
 
@@ -77,10 +77,13 @@ function Messages(): JSX.Element {
 				useWindow={false}>
 				{messages.items.map(message => {
 					const isOwner = message.user?.id === loggedInUser.id
+					const textClass = classes(styles.text, { [styles.sender]: isOwner })
+					const detailsClass = classes(styles.details, { [styles.sender]: isOwner })
+					const showThumb = !isOwner && message.user?.name
 
 					return (
-						<li className={joinClass(styles.message, isOwner && styles.sender)} key={message.id}>
-							{!isOwner && message.user?.name && (
+						<li className={classes(styles.message, { [styles.sender]: isOwner })} key={message.id}>
+							{showThumb && (
 								<figure className={styles.thumb}>
 									{message.user.name.charAt(0).toUpperCase()}
 									{/* <img
@@ -90,10 +93,8 @@ function Messages(): JSX.Element {
 									/> */}
 								</figure>
 							)}
-							<div className={joinClass(styles.details, isOwner && styles.sender)}>
-								<p className={joinClass(styles.text, isOwner && styles.sender)}>
-									{ReactEmoji.emojify(message.content)}
-								</p>
+							<div className={detailsClass}>
+								<p className={textClass}>{ReactEmoji.emojify(message.content)}</p>
 								<span className={styles.name}>{message.user && message.user.name}</span>
 							</div>
 						</li>

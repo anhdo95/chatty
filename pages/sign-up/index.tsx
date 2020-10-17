@@ -6,7 +6,7 @@ import Cookies from 'js-cookie'
 import Router from 'next/router'
 import Link from 'next/link'
 
-import { RegisterRequest } from '@/interfaces/register'
+import { RegisterRequest } from '@/shared/interfaces/register'
 import apiService from '@/services/api.service'
 
 import styles from './style.module.scss'

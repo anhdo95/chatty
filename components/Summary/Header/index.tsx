@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { Form, Icon } from 'semantic-ui-react'
 
 import { RootState } from '@/store/reducers'
-import { User } from '@/interfaces/user'
+import { User } from '@/shared/interfaces/user'
 
 import styles from './style.module.scss'
 

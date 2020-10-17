@@ -1,6 +1,6 @@
 import { wrapper } from '@/store'
-import withProtectedRoute from '@/hocs/ProtectedRoute'
-import withAnonymousRoute from '@/hocs/AnonymousRoute'
+import withProtectedRoute from '@/shared/hocs/ProtectedRoute'
+import withAnonymousRoute from '@/shared/hocs/AnonymousRoute'
 import Layout from '@/components/Layout'
 
 import '@/styles/globals.scss'

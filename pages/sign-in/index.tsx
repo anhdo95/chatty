@@ -7,7 +7,7 @@ import Router from 'next/router'
 import Link from 'next/link'
 
 import Logo from '@/components/Logo'
-import { LoginRequest } from '@/interfaces/login'
+import { LoginRequest } from '@/shared/interfaces/login'
 import apiService from '@/services/api.service'
 
 import styles from './style.module.scss'
