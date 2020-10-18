@@ -29,39 +29,5 @@
   height: 50vh;
   overflow-y: auto;
   margin-top: 2rem;
-}
-
-.user {
-  display: grid;
-  grid-template-columns: 40px minmax(0, 1fr) max-content;
-  grid-gap: 0.5rem;
-  align-items: center;
-
-  &:not(:last-child) {
-    margin-bottom: 1rem;
-  }
-}
-
-.avatar {
-  line-height: 40px;
-  text-align: center;
-  background-color: $color-grey-light;
-  border-radius: 50%;
-}
-
-.userName,
-.userEmail {
-  @include text-ellipsis;
-
-  display: block;
-}
-
-.userName {
-  font-weight: 500;
-}
-
-.userEmail {
-  margin-top: 0.25rem;
-  font-size: 13px;
-  color: $color-dark;
+  padding-right: 0.5rem;
 }

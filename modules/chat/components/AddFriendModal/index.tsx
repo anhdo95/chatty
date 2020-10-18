@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
-import { Form, Button, Modal } from 'semantic-ui-react'
-import InfiniteScroll from 'react-infinite-scroller'
+import { Form, Modal } from 'semantic-ui-react'
 
+import Friends from '@/modules/chat/components/Friends'
 import useDebounce from '@/shared/hooks/use-debounce'
 import { Users } from '@/shared/interfaces/user'
 import apiService from '@/services/api.service'
@@ -10,7 +10,7 @@ import styles from './style.module.scss'
 
 const LIMIT = 10
 
-function AddFriendModal(props) {
+function AddFriendModal(props): JSX.Element {
 	const [users, setUsers] = useState<Users>({
 		items: [],
 		totalItems: 0,
@@ -51,6 +51,10 @@ function AddFriendModal(props) {
 		[users, setUsers, debouncedSearchTerm]
 	)
 
+	const handleLoadMore = useCallback(() => {
+		loadUsers()
+	}, [users, setUsers, debouncedSearchTerm])
+
 	const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchTerm(event.target.value)
 	}, [])
@@ -90,29 +94,11 @@ function AddFriendModal(props) {
 				/>
 
 				<ul ref={usersRef} className={styles.users}>
-					<InfiniteScroll
-						threshold={100}
-						loadMore={() => loadUsers()}
-						hasMore={hasMore}
-						initialLoad={false}
-						useWindow={false}>
-						{users &&
-							users.items &&
-							users.items.map(user => (
-								<li className={styles.user} key={user.id}>
-									<div className={styles.avatar}>{user.name.charAt(0).toUpperCase()}</div>
-									<div className={styles.userInfo}>
-										<span className={styles.userName}>{user.name}</span>
-										<span className={styles.userEmail}>{user.email}</span>
-									</div>
-									<div className={styles.actions}>
-										<Button type="button" color="teal" fluid size="mini">
-											Add friend
-										</Button>
-									</div>
-								</li>
-							))}
-					</InfiniteScroll>
+					{users.items.length ? (
+						<Friends hasMore={hasMore} onLoadMore={handleLoadMore} friends={users.items} />
+					) : (
+						<p className="text-center">{`Your friend doesn't exist`}</p>
+					)}
 				</ul>
 			</div>
 		</Modal>
