@@ -4,6 +4,7 @@ import { LoginRequest, LoginResponse } from '@/modules/auth/interfaces/login'
 import { User, UsersRequest, Users } from '@/shared/interfaces/user'
 import { ConversationsRequest, Conversations } from '@/modules/chat/interfaces/conversation'
 import { Messages, MessagesRequest } from '@/modules/chat/interfaces/message'
+import { FriendRequest, Friend } from '@/modules/chat/interfaces/friend'
 
 export default {
 	register(data: RegisterRequest): Promise<RegisterResponse> {
@@ -28,5 +29,9 @@ export default {
 
 	getMessages(params: MessagesRequest): Promise<Messages> {
 		return axios.get(`/messages`, { params })
+	},
+
+	addFriend(data: FriendRequest): Promise<Friend> {
+		return axios.post(`/friends`, data)
 	},
 }

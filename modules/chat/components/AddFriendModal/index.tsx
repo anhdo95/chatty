@@ -95,7 +95,7 @@ function AddFriendModal(props): JSX.Element {
 
 				<ul ref={usersRef} className={styles.users}>
 					{users.items.length ? (
-						<Friends hasMore={hasMore} onLoadMore={handleLoadMore} friends={users.items} />
+						<Friends hasMore={hasMore} users={users.items} onLoadMore={handleLoadMore} />
 					) : (
 						<p className="text-center">{`Your friend doesn't exist`}</p>
 					)}

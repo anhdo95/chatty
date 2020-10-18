@@ -11,7 +11,7 @@ export interface Conversations {
 	totalItems: number
 }
 
-export class ConversationRequest {
+export interface ConversationRequest {
 	name: string
 	userIds: number[]
 	coverPhoto?: string

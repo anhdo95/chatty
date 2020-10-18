@@ -1,10 +1,12 @@
 import React from 'react'
-import { Button } from 'semantic-ui-react'
 import InfiniteScroll from 'react-infinite-scroller'
+
+import Friend from '@/modules/chat/components/Friend'
+import { User } from '@/shared/interfaces/user'
 
 import styles from './style.module.scss'
 
-function Friends(props): JSX.Element {
+function Friends(props: Props): JSX.Element {
 	return (
 		<InfiniteScroll
 			threshold={100}
@@ -12,23 +14,15 @@ function Friends(props): JSX.Element {
 			hasMore={props.hasMore}
 			initialLoad={false}
 			useWindow={false}>
-			{props.friends &&
-				props.friends.map(user => (
-					<li className={styles.user} key={user.id}>
-						<div className={styles.avatar}>{user.name.charAt(0).toUpperCase()}</div>
-						<div className={styles.userInfo}>
-							<span className={styles.userName}>{user.name}</span>
-							<span className={styles.userEmail}>{user.email}</span>
-						</div>
-						<div className={styles.actions}>
-							<Button type="button" color="teal" fluid size="mini">
-								Add friend
-							</Button>
-						</div>
-					</li>
-				))}
+			{props.users && props.users.map(user => <Friend user={user} key={user.id} />)}
 		</InfiniteScroll>
 	)
+}
+
+interface Props {
+	users: User[]
+	hasMore: boolean
+	onLoadMore: () => void
 }
 
 export default Friends
