@@ -1,13 +1,14 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { Form, Button, Modal } from 'semantic-ui-react'
 import InfiniteScroll from 'react-infinite-scroller'
 
-import apiService from '@/services/api.service'
+import useDebounce from '@/shared/hooks/use-debounce'
 import { Users } from '@/shared/interfaces/user'
+import apiService from '@/services/api.service'
 
 import styles from './style.module.scss'
 
-const LIMIT = 5
+const LIMIT = 10
 
 function AddFriendModal(props) {
 	const [users, setUsers] = useState<Users>({
@@ -16,68 +17,85 @@ function AddFriendModal(props) {
 	})
 	const [hasMore, setHasMore] = useState(true)
 	const [open, setOpen] = useState(false)
-	const [searchTerm, setSearchTerm] = useState()
+	const [searchTerm, setSearchTerm] = useState<string>()
+	const debouncedSearchTerm = useDebounce(searchTerm, 500)
+	const usersRef = useRef<HTMLUListElement>()
+
+	useEffect(() => {
+		loadUsers(true)
+
+		usersRef.current?.scrollTo(0, 0)
+	}, [debouncedSearchTerm])
 
 	const loadUsers = useCallback(
-		async function () {
+		async (refresh?: boolean) => {
 			try {
+				const currentUsers = refresh ? [] : users.items
+
 				const nextUsers = await apiService.getUnfriendedUsers({
 					limit: LIMIT,
-					offset: users.items.length,
+					offset: currentUsers.length,
+					term: debouncedSearchTerm,
 				})
 
-				if (nextUsers.totalItems === users.items.length) {
-					setHasMore(false)
-				}
+				setHasMore(nextUsers.totalItems !== currentUsers.length)
 
 				setUsers({
 					...nextUsers,
-					items: users.items.concat(nextUsers.items),
+					items: currentUsers.concat(nextUsers.items),
 				})
 			} catch (error) {
 				console.error(error)
 			}
 		},
-		[users, setUsers, setHasMore]
+		[users, setUsers, debouncedSearchTerm]
 	)
 
-	function handleInputChange(event) {
+	const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchTerm(event.target.value)
-	}
+	}, [])
 
-	function handleSearch(event) {
-		event.preventDefault()
-	}
+	const handleClose = useCallback(() => {
+		setUsers({
+			items: [],
+			totalItems: 0,
+		})
+		setSearchTerm(null)
+		setOpen(false)
+	}, [])
 
 	return (
 		<Modal
 			className={styles.modal}
-			onClose={() => setOpen(false)}
+			onClose={handleClose}
 			onOpen={() => setOpen(true)}
 			open={open}
 			trigger={props.trigger}>
 			<header className={styles.header}>
 				Add friend
-				<span className={styles.close} onClick={() => setOpen(false)}>
+				<span className={styles.close} onClick={handleClose}>
 					&times;
 				</span>
 			</header>
 			<div className={styles.content}>
-				<Form className={styles.form} onSubmit={handleSearch}>
-					<Form.Input
-						fluid
-						size="small"
-						icon="search"
-						iconPosition="right"
-						name="term"
-						placeholder="Enter your friend"
-						value={searchTerm}
-						onChange={handleInputChange}
-					/>
-				</Form>
+				<Form.Input
+					fluid
+					size="small"
+					icon="search"
+					iconPosition="right"
+					name="term"
+					placeholder="Enter your friend"
+					value={searchTerm}
+					onChange={handleChange}
+				/>
 
-				<ul className={styles.users}>
-					<InfiniteScroll threshold={100} loadMore={loadUsers} hasMore={hasMore} useWindow={false}>
+				<ul ref={usersRef} className={styles.users}>
+					<InfiniteScroll
+						threshold={100}
+						loadMore={() => loadUsers()}
+						hasMore={hasMore}
+						initialLoad={false}
+						useWindow={false}>
 						{users &&
 							users.items &&
 							users.items.map(user => (

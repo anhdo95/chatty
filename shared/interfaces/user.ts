@@ -1,6 +1,7 @@
 export interface UsersRequest {
 	limit: number
 	offset: number
+	term: string
 }
 
 export interface Users {

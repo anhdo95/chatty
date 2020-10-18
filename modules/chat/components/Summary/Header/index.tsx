@@ -37,8 +37,8 @@ function Header() {
 						onChange={handleChange}
 					/>
 				</Form>
-				<AddFriendModal trigger={<Icon className={styles.icon} name="user outline" />} />
-				<Icon className={styles.icon} name="plus square outline" />
+				<AddFriendModal trigger={<Icon className={styles.icon} name="add user" />} />
+				<Icon className={styles.icon} name="plus square" />
 			</div>
 		</header>
 	)
