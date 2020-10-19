@@ -68,11 +68,16 @@ function AddFriendModal(props): JSX.Element {
 		setOpen(false)
 	}, [])
 
+	const handleOpen = useCallback(() => {
+		loadUsers(true)
+		setOpen(true)
+	}, [])
+
 	return (
 		<Modal
 			className={styles.modal}
 			onClose={handleClose}
-			onOpen={() => setOpen(true)}
+			onOpen={handleOpen}
 			open={open}
 			trigger={props.trigger}>
 			<header className={styles.header}>
