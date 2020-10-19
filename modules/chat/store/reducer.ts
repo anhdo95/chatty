@@ -1,5 +1,6 @@
 import { AnyAction } from 'redux'
 import {
+	SET_ACTIVE_TAB,
 	SET_CHAT_MESSAGES,
 	ADD_CHAT_MESSAGE,
 	SET_CHAT_ROOMS,
@@ -8,14 +9,17 @@ import {
 } from './actions'
 import { Messages } from '@/modules/chat/interfaces/message'
 import { Conversations, Conversation } from '@/modules/chat/interfaces/conversation'
+import { Tab } from '@/modules/chat/enums/tab'
 
 export interface ChatState {
+	activeTab: Tab
 	rooms: Conversations
 	selectedRoom: Conversation
 	messages: Messages
 }
 
 const initialState: ChatState = {
+	activeTab: Tab.Messages,
 	rooms: {
 		items: [],
 		totalItems: 0,
@@ -29,6 +33,12 @@ const initialState: ChatState = {
 
 function reducer(state: ChatState = initialState, action: AnyAction): ChatState {
 	switch (action.type) {
+		case SET_ACTIVE_TAB:
+			return {
+				...state,
+				activeTab: action.payload,
+			}
+
 		case SET_CHAT_MESSAGES:
 			return { ...state, messages: action.payload }
 
