@@ -6,8 +6,10 @@ import {
 	SET_CHAT_ROOMS,
 	SET_SELECTED_ROOM,
 	RESET_CHAT_MESSAGES,
+	SET_FRIENDS,
 } from './actions'
 import { Messages } from '@/modules/chat/interfaces/message'
+import { Friends } from '@/modules/chat/interfaces/friend'
 import { Conversations, Conversation } from '@/modules/chat/interfaces/conversation'
 import { Tab } from '@/modules/chat/enums/tab'
 
@@ -16,6 +18,7 @@ export interface ChatState {
 	rooms: Conversations
 	selectedRoom: Conversation
 	messages: Messages
+	friends: Friends
 }
 
 const initialState: ChatState = {
@@ -26,6 +29,10 @@ const initialState: ChatState = {
 	},
 	selectedRoom: null,
 	messages: {
+		items: [],
+		totalItems: 0,
+	},
+	friends: {
 		items: [],
 		totalItems: 0,
 	},
@@ -78,6 +85,9 @@ function reducer(state: ChatState = initialState, action: AnyAction): ChatState 
 
 		case SET_SELECTED_ROOM:
 			return { ...state, selectedRoom: action.payload }
+
+		case SET_FRIENDS:
+			return { ...state, friends: action.payload }
 
 		default:
 			return state

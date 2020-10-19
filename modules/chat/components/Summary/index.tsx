@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react'
+import { useSelector } from 'react-redux'
 
 import Header from './Header'
 import Rooms from './Rooms'
-import { useSelector } from 'react-redux'
+import Friends from './Friends'
 import { RootState } from '@/store/reducers'
 import { Tab } from '@/modules/chat/enums/tab'
 
@@ -17,7 +18,7 @@ function Summary(): JSX.Element {
 				return <Rooms />
 
 			case Tab.Friends:
-				return <div>Friends</div>
+				return <Friends />
 
 			default:
 				return null
