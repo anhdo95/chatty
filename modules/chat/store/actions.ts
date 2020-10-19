@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux'
 import { Conversations, Conversation } from '@/modules/chat/interfaces/conversation'
 import { Messages, Message } from '@/modules/chat/interfaces/message'
-import { Friends } from '@/modules/chat/interfaces/friend'
+import { Friends, Friend } from '@/modules/chat/interfaces/friend'
 import { Tab } from '@/modules/chat/enums/tab'
 
 export const SET_ACTIVE_TAB = 'SET_ACTIVE_TAB'
@@ -14,6 +14,7 @@ export const SET_CHAT_ROOMS = 'SET_CHAT_ROOMS'
 export const SET_SELECTED_ROOM = 'SET_SELECTED_ROOM'
 
 export const SET_FRIENDS = 'SET_FRIENDS'
+export const ADD_FRIEND = 'ADD_FRIEND'
 
 export function setActiveTab(tab: Tab): AnyAction {
 	return {
@@ -60,5 +61,12 @@ export function setFriends(friends: Friends): AnyAction {
 	return {
 		type: SET_FRIENDS,
 		payload: friends,
+	}
+}
+
+export function addFriend(friend: Friend): AnyAction {
+	return {
+		type: ADD_FRIEND,
+		payload: friend,
 	}
 }

@@ -7,6 +7,7 @@ import {
 	SET_SELECTED_ROOM,
 	RESET_CHAT_MESSAGES,
 	SET_FRIENDS,
+	ADD_FRIEND,
 } from './actions'
 import { Messages } from '@/modules/chat/interfaces/message'
 import { Friends } from '@/modules/chat/interfaces/friend'
@@ -88,6 +89,15 @@ function reducer(state: ChatState = initialState, action: AnyAction): ChatState 
 
 		case SET_FRIENDS:
 			return { ...state, friends: action.payload }
+
+		case ADD_FRIEND:
+			return {
+				...state,
+				friends: {
+					items: [action.payload, ...state.friends.items],
+					totalItems: state.friends.totalItems + 1,
+				},
+			}
 
 		default:
 			return state
