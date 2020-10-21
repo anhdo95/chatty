@@ -2,7 +2,12 @@ import axios from '@/core/axios'
 import { RegisterRequest, RegisterResponse } from '@/modules/auth/interfaces/register'
 import { LoginRequest, LoginResponse } from '@/modules/auth/interfaces/login'
 import { User, UsersRequest, Users } from '@/shared/interfaces/user'
-import { ConversationsRequest, Conversations } from '@/modules/chat/interfaces/conversation'
+import {
+	ConversationsRequest,
+	Conversations,
+	ConversationRequest,
+	Conversation,
+} from '@/modules/chat/interfaces/conversation'
 import { Messages, MessagesRequest } from '@/modules/chat/interfaces/message'
 import { FriendRequest, Friend, FriendsRequest, Friends } from '@/modules/chat/interfaces/friend'
 
@@ -21,6 +26,10 @@ export default {
 
 	getUnfriendedUsers(params: UsersRequest): Promise<Users> {
 		return axios.get(`/users/unfriended`, { params })
+	},
+
+	addRoom(data: ConversationRequest): Promise<Conversation> {
+		return axios.post(`/conversations`, data)
 	},
 
 	getRooms(params: ConversationsRequest): Promise<Conversations> {

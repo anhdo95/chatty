@@ -1,5 +1,6 @@
 import { ConversationType } from '@/modules/chat/enums/conversation'
 import { Message } from './message'
+import { User } from '@/shared/interfaces/user'
 
 export interface ConversationsRequest {
 	limit: number
@@ -23,6 +24,7 @@ export interface Conversation {
 	type: ConversationType
 	coverPhoto: string
 	lastMessage: Message
+	users: User[]
 	createdAt: Date
 	updatedAt: Date
 }

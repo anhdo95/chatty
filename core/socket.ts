@@ -32,7 +32,6 @@ const clientSocket: ClientSocket = {
 	join(conversationId: number): Promise<ConversationRequest> {
 		return new Promise(resolve => {
 			function handleError(result: ConversationRequest) {
-				console.log('join', result)
 				resolve(result)
 			}
 
