@@ -35,6 +35,8 @@ function Rooms(): JSX.Element {
 		socket.receiveMessage((message: Message) => {
 			dispatch(addMessage(message))
 		})
+
+		return socket.unsubscribe.bind(socket)
 	}, [])
 
 	const loadRooms = useCallback(

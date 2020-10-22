@@ -4,8 +4,6 @@ import InfiniteScroll from 'react-infinite-scroller'
 import Friend from '@/modules/chat/components/Friend'
 import { User } from '@/shared/interfaces/user'
 
-import styles from './style.module.scss'
-
 function Friends(props: Props): JSX.Element {
 	return (
 		<InfiniteScroll

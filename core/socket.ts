@@ -54,7 +54,7 @@ const clientSocket: ClientSocket = {
 	},
 
 	unsubscribe(): void {
-		this.socket.off(null)
+		this.socket.off()
 	},
 }
 

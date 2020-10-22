@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import InfiniteScroll from 'react-infinite-scroller'
 
@@ -7,7 +7,13 @@ import { RootState } from '@/store/reducers'
 import apiService from '@/services/api.service'
 import { Friends as IFriends, Friend } from '@/modules/chat/interfaces/friend'
 import { Conversation } from '@/modules/chat/interfaces/conversation'
-import { setFriends, resetMessages, setSelectedRoom } from '@/modules/chat/store/actions'
+import { Message } from '@/modules/chat/interfaces/message'
+import {
+	setFriends,
+	resetMessages,
+	setSelectedRoom,
+	addMessage,
+} from '@/modules/chat/store/actions'
 import { classes } from '@/shared/util'
 
 import styles from './style.module.scss'
@@ -19,6 +25,14 @@ function Friends() {
 	const selectedRoom = useSelector<RootState, Conversation>(state => state.chat.selectedRoom)
 	const [hasMore, setHasMore] = useState(true)
 	const dispatch = useDispatch()
+
+	useEffect(() => {
+		socket.receiveMessage((message: Message) => {
+			dispatch(addMessage(message))
+		})
+
+		return socket.unsubscribe.bind(socket)
+	}, [])
 
 	const loadFriends = useCallback(async () => {
 		try {

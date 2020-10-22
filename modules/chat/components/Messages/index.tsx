@@ -31,6 +31,8 @@ function Messages(): JSX.Element {
 				messagesRef.current.scrollTo(0, messagesRef.current.scrollHeight)
 			}
 		})
+
+		return socket.unsubscribe.bind(socket)
 	}, [])
 
 	useEffect(() => {
