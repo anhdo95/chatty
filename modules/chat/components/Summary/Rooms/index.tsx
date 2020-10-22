@@ -15,6 +15,7 @@ import {
 import { Conversations, Conversation } from '@/modules/chat/interfaces/conversation'
 import { Message } from '@/modules/chat/interfaces/message'
 import { classes } from '@/shared/util'
+import localStorage from '@/shared/util/local-storage'
 
 import styles from './style.module.scss'
 
@@ -30,6 +31,12 @@ function Rooms(): JSX.Element {
 
 	const dispatch = useDispatch()
 	const [hasMore, setHasMore] = useState<boolean>(true)
+
+	useEffect(() => {
+		if (localStorage('selectedRoom')) {
+			setRoom(localStorage('selectedRoom'))
+		}
+	}, [])
 
 	useEffect(() => {
 		socket.receiveMessage((message: Message) => {
@@ -66,10 +73,15 @@ function Rooms(): JSX.Element {
 		[rooms, setHasMore]
 	)
 
+	function setRoom(room) {
+		dispatch(resetMessages())
+		dispatch(setSelectedRoom(room))
+	}
+
 	function handleRoomClick(room: Conversation) {
 		return function () {
-			dispatch(resetMessages())
-			dispatch(setSelectedRoom(room))
+			setRoom(room)
+			localStorage('selectedRoom', room)
 		}
 	}
 

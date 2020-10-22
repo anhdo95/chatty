@@ -15,6 +15,7 @@ import {
 	addMessage,
 } from '@/modules/chat/store/actions'
 import { classes } from '@/shared/util'
+import localStorage from '@/shared/util/local-storage'
 
 import styles from './style.module.scss'
 
@@ -25,6 +26,10 @@ function Friends() {
 	const selectedRoom = useSelector<RootState, Conversation>(state => state.chat.selectedRoom)
 	const [hasMore, setHasMore] = useState(true)
 	const dispatch = useDispatch()
+
+	useEffect(() => {
+		createConversation(friends.items[0], localStorage('selectedFriendRoom'))
+	}, [])
 
 	useEffect(() => {
 		socket.receiveMessage((message: Message) => {
@@ -42,7 +47,7 @@ function Friends() {
 			})
 
 			if (!friends.items.length && nextFriends.items.length) {
-				createConversation(nextFriends.items[0])
+				createConversation(nextFriends.items[0], localStorage('selectedFriendRoom'))
 			}
 
 			if (nextFriends.totalItems === friends.items.length) {
@@ -60,17 +65,22 @@ function Friends() {
 		}
 	}, [friends])
 
-	const createConversation = useCallback(async (friend: Friend) => {
+	const createConversation = useCallback(async (friend: Friend, room?: Conversation) => {
 		try {
-			const room = await apiService.addRoom({
-				name: friend.toUser.name,
-				userIds: [friend.toUserId],
-			})
+			if (!friend) return
+
+			if (!room) {
+				room = await apiService.addRoom({
+					name: friend.toUser.name,
+					userIds: [friend.toUserId],
+				})
+			}
 
 			socket.join(room.id)
 
 			dispatch(resetMessages())
 			dispatch(setSelectedRoom(room))
+			localStorage('selectedFriendRoom', room)
 		} catch (error) {
 			console.error(error)
 		}
