@@ -75,7 +75,7 @@ function Friends() {
 					initialLoad={true}
 					useWindow={false}>
 					{friends.items.map(friend => {
-						const active = selectedRoom?.users.every(user =>
+						const active = selectedRoom?.users?.every(user =>
 							[friend.fromUserId, friend.toUserId].includes(user.id)
 						)
 

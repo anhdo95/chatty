@@ -5,6 +5,7 @@ import { ConversationRequest } from '@/modules/chat/interfaces/conversation'
 
 export interface ClientSocket {
 	socket: SocketIOClient.Socket
+	joinnedConversationIds: number[]
 	init: () => void
 	join(conversationId: number): Promise<ConversationRequest>
 	receiveMessage(callback: (message: Message) => void): void
@@ -14,6 +15,8 @@ export interface ClientSocket {
 
 const clientSocket: ClientSocket = {
 	socket: null,
+
+	joinnedConversationIds: [],
 
 	init() {
 		const options: SocketIOClient.ConnectOpts = {
@@ -31,11 +34,14 @@ const clientSocket: ClientSocket = {
 
 	join(conversationId: number): Promise<ConversationRequest> {
 		return new Promise(resolve => {
-			function handleError(result: ConversationRequest) {
+			const handleError = (result: ConversationRequest) => {
 				resolve(result)
 			}
 
-			this.socket.emit('join', conversationId, handleError)
+			if (!this.joinnedConversationIds.includes(conversationId)) {
+				this.socket.emit('join', conversationId, handleError)
+				this.joinnedConversationIds.push(conversationId)
+			}
 		})
 	},
 
